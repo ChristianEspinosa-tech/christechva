@@ -33,8 +33,8 @@ const HeroSection = () => {
           transition={{ duration: 0.7, delay: 0.15 }}
           className="font-display text-4xl sm:text-5xl md:text-7xl font-bold leading-tight mb-6 max-w-4xl mx-auto"
         >
-          Automate Your Business.{" "}
-          <span className="gradient-text">Scale Without Hiring.</span>
+          Save 10–20+ Hours Per Week.{" "}
+          <span className="gradient-text">Grow Without Hiring.</span>
         </motion.h1>
 
         <motion.p
@@ -43,8 +43,7 @@ const HeroSection = () => {
           transition={{ duration: 0.7, delay: 0.3 }}
           className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-10"
         >
-          I help businesses eliminate repetitive tasks and build smart
-          AI-powered workflows using modern automation tools.
+          I help businesses increase lead response speed by 80%, eliminate repetitive tasks, and build scalable AI-powered workflows — so you can focus on growth.
         </motion.p>
 
         <motion.div

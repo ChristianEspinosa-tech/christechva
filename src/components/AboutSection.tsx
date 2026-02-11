@@ -1,10 +1,18 @@
-import { MapPin, Rocket, Target, Lightbulb } from "lucide-react";
+import { MapPin, Rocket, Target, Lightbulb, Clock, Zap, UserCheck, BellRing, TrendingUp } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 
 const traits = [
   { icon: Rocket, label: "Growth-Driven", desc: "Constantly learning and improving my skills" },
   { icon: Target, label: "Detail-Oriented", desc: "Every workflow is built with precision" },
   { icon: Lightbulb, label: "Solution-Focused", desc: "Practical automation that delivers results" },
+];
+
+const outcomes = [
+  { icon: Clock, text: "Reduce manual tasks by 80%" },
+  { icon: Zap, text: "Faster lead response times" },
+  { icon: UserCheck, text: "Better client follow-ups" },
+  { icon: BellRing, text: "No missed inquiries" },
+  { icon: TrendingUp, text: "Scalable systems that grow with you" },
 ];
 
 const AboutSection = () => {
@@ -24,9 +32,17 @@ const AboutSection = () => {
               delivering results means you get a partner who's hungry, committed, and laser-focused
               on your success.
             </p>
-            <div className="flex items-center justify-center gap-2 mt-4 text-muted-foreground">
+            <div className="flex items-center justify-center gap-2 mt-4 mb-8 text-muted-foreground">
               <MapPin className="w-4 h-4 text-primary" />
               <span className="text-sm">Philippines</span>
+            </div>
+            <div className="flex flex-wrap justify-center gap-3">
+              {outcomes.map((o) => (
+                <span key={o.text} className="inline-flex items-center gap-2 text-sm font-medium text-primary bg-primary/10 px-4 py-2 rounded-full">
+                  <o.icon className="w-4 h-4" />
+                  {o.text}
+                </span>
+              ))}
             </div>
           </div>
         </AnimatedSection>
