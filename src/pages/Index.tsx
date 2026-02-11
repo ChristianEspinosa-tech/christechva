@@ -5,7 +5,9 @@ import ToolsSection from "@/components/ToolsSection";
 import ServicesSection from "@/components/ServicesSection";
 import ProcessSection from "@/components/ProcessSection";
 import BeforeAfterSection from "@/components/BeforeAfterSection";
+import WorkflowDiagramSection from "@/components/WorkflowDiagramSection";
 import UseCasesSection from "@/components/UseCasesSection";
+import PricingSection from "@/components/PricingSection";
 import WhyMeSection from "@/components/WhyMeSection";
 import CTASection from "@/components/CTASection";
 import ContactSection from "@/components/ContactSection";
@@ -21,7 +23,9 @@ const Index = () => {
       <ServicesSection />
       <ProcessSection />
       <BeforeAfterSection />
+      <WorkflowDiagramSection />
       <UseCasesSection />
+      <PricingSection />
       <WhyMeSection />
       <CTASection />
       <ContactSection />
