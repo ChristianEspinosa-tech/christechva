@@ -39,6 +39,9 @@ const ToolsSection = () => {
             <h2 className="font-display text-3xl md:text-5xl font-bold mt-4 mb-6">
               Tools I <span className="gradient-text">Specialize In</span>
             </h2>
+            <p className="text-muted-foreground text-sm max-w-xl mx-auto">
+              Certified and proficient in industry-leading automation platforms trusted by thousands of businesses worldwide.
+            </p>
           </div>
         </AnimatedSection>
 

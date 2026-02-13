@@ -23,7 +23,7 @@ const HeroSection = () => {
         >
           <span className="inline-flex items-center gap-2 glass-card px-4 py-2 text-sm text-primary mb-8">
             <span className="w-2 h-2 bg-primary rounded-full animate-glow-pulse" />
-            AI Automation Specialist
+            AI-Driven Workflow Developer
           </span>
         </motion.div>
 
