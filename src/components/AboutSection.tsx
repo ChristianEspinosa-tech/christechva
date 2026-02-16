@@ -1,5 +1,6 @@
 import { MapPin, Rocket, Target, Lightbulb, Clock, Zap, UserCheck, BellRing, TrendingUp, Sparkles, Globe, Heart } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
+import avatarImg from "@/assets/avatar-placeholder.png";
 
 const traits = [
   { icon: Rocket, label: "Growth-Focused", desc: "Constantly learning and improving my skills" },
@@ -39,6 +40,11 @@ const AboutSection = () => {
       <div className="container mx-auto px-4">
         <AnimatedSection>
           <div className="max-w-3xl mx-auto text-center mb-16">
+            <div className="mb-6">
+              <div className="w-28 h-28 md:w-36 md:h-36 rounded-full mx-auto overflow-hidden border-2 border-primary/30 shadow-[0_0_30px_hsl(187_80%_55%/0.15)]">
+                <img src={avatarImg} alt="Christian Espinosa" className="w-full h-full object-cover" />
+              </div>
+            </div>
             <span className="text-primary text-sm font-semibold uppercase tracking-widest">About Me</span>
             <h2 className="font-display text-3xl md:text-5xl font-bold mt-4 mb-6">
               Passionate About <span className="gradient-text">Smart Automation</span>
