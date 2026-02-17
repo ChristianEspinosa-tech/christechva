@@ -19,10 +19,10 @@ const CTASection = () => {
                 Let's discuss how automation can transform your workflow, save you time, and help your business scale.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="#contact" className="btn-primary inline-flex items-center justify-center gap-2">
+                <a href="#booking" className="btn-primary inline-flex items-center justify-center gap-2">
                   Let's Talk <ArrowRight className="w-4 h-4" />
                 </a>
-                <a href="#contact" className="btn-outline-glow inline-flex items-center justify-center gap-2">
+                <a href="#booking" className="btn-outline-glow inline-flex items-center justify-center gap-2">
                   <Calendar className="w-4 h-4" /> Schedule Free Strategy Call
                 </a>
               </div>
