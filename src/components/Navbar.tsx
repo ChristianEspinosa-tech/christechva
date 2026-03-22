@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Zap } from "lucide-react";
+import profileImg from "@/assets/profile.png";
 
 const navLinks = [
   { label: "About", href: "#about" },
