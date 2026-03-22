@@ -1,10 +1,22 @@
 import { TrendingUp, Clock, Users, DollarSign } from "lucide-react";
+import { useState } from "react";
 import AnimatedSection from "./AnimatedSection";
+
+const categories = [
+  "All",
+  "Lead Generation & CRM Sync",
+  "Appointment & Booking Automation",
+  "AI Support & Chat Agents",
+  "E-commerce & Order Flows",
+  "Content & Social Automation",
+  "Custom Integrations",
+];
 
 const caseStudies = [
   {
     title: "E-Commerce Lead Pipeline",
     client: "Online Retail Brand",
+    category: "E-commerce & Order Flows",
     description: "Built an end-to-end lead capture and nurture system connecting Facebook Ads, CRM, and email sequences.",
     results: [
       { icon: TrendingUp, label: "Lead Conversion", value: "+68%" },
@@ -17,6 +29,7 @@ const caseStudies = [
   {
     title: "Appointment Booking System",
     client: "Coaching & Consulting Firm",
+    category: "Appointment & Booking Automation",
     description: "Automated the entire booking flow—from initial inquiry to confirmation, reminders, and post-session follow-ups.",
     results: [
       { icon: Users, label: "No-Show Rate", value: "-75%" },
@@ -29,6 +42,7 @@ const caseStudies = [
   {
     title: "AI Customer Support Bot",
     client: "SaaS Startup",
+    category: "AI Support & Chat Agents",
     description: "Deployed a custom AI chatbot handling tier-1 support, qualifying leads, and routing complex issues to agents.",
     results: [
       { icon: Clock, label: "Avg. Resolution", value: "< 30s" },
@@ -41,23 +55,47 @@ const caseStudies = [
 ];
 
 const CaseStudiesSection = () => {
+  const [active, setActive] = useState("All");
+
+  const filtered = active === "All"
+    ? caseStudies
+    : caseStudies.filter((s) => s.category === active);
+
   return (
     <section id="portfolio" className="py-24 section-gradient">
       <div className="container mx-auto px-4">
         <AnimatedSection>
-          <div className="text-center mb-16">
+          <div className="text-center mb-10">
             <span className="text-primary text-sm font-semibold uppercase tracking-widest">Portfolio</span>
             <h2 className="font-display text-3xl md:text-5xl font-bold mt-4 mb-6">
-              Real Results, <span className="gradient-text">Real Impact</span>
+              Selected AI & n8n Automations – <span className="gradient-text">Real Business Impact</span>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              A look at automation projects that delivered measurable outcomes for real businesses.
+              I've built 10–15+ production workflows saving clients 10–75+ hours/week. Here are my strongest examples across industries.
             </p>
           </div>
         </AnimatedSection>
 
+        <AnimatedSection delay={0.1}>
+          <div className="flex flex-wrap justify-center gap-2 mb-12 max-w-4xl mx-auto">
+            {categories.map((cat) => (
+              <button
+                key={cat}
+                onClick={() => setActive(cat)}
+                className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 border ${
+                  active === cat
+                    ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
+                    : "bg-secondary/50 text-muted-foreground border-border hover:bg-secondary hover:text-foreground"
+                }`}
+              >
+                {cat}
+              </button>
+            ))}
+          </div>
+        </AnimatedSection>
+
         <div className="grid lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {caseStudies.map((study, i) => (
+          {filtered.map((study, i) => (
             <AnimatedSection key={study.title} delay={i * 0.12}>
               <div className="glass-card-hover h-full flex flex-col overflow-hidden">
                 <div className={`bg-gradient-to-br ${study.gradient} p-6 pb-4`}>
