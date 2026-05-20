@@ -1,17 +1,17 @@
-import { Check, ArrowRight, Star, Zap } from "lucide-react";
+import { Check, ArrowRight, Star, Zap, Clock } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 
 const packages = [
   {
     name: "Starter",
-    tagline: "Perfect first step",
+    tagline: "One workflow, fully done",
     icon: Zap,
+    turnaround: "7 days",
     features: [
-      "1 Workflow Automation",
-      "CRM Integration",
-      "Email Automation Setup",
-      "7 Days Post-Launch Support",
-      "Documentation & Training",
+      "1 production-ready automation (n8n, Make, or Zapier)",
+      "CRM or email tool integration",
+      "Loom walkthrough + written SOP",
+      "14 days post-launch support",
     ],
     cta: "Get Started",
     highlighted: false,
@@ -20,28 +20,28 @@ const packages = [
     name: "Growth",
     tagline: "Most popular",
     icon: Star,
+    turnaround: "2–3 weeks",
     features: [
-      "3 Workflow Automations",
-      "CRM + Lead Capture Setup",
-      "AI Chatbot Integration",
-      "Email & SMS Sequences",
-      "14 Days Priority Support",
-      "Performance Dashboard",
+      "3 connected automations (lead capture → nurture → booking)",
+      "GoHighLevel or HubSpot pipeline setup",
+      "AI chatbot or email agent integration",
+      "Loom + SOP + n8n JSON export",
+      "30 days priority support",
     ],
     cta: "Let's Talk",
     highlighted: true,
   },
   {
     name: "Scale",
-    tagline: "Full automation suite",
+    tagline: "Full automation system",
     icon: Star,
+    turnaround: "4–6 weeks",
     features: [
-      "Unlimited Workflows",
-      "Full CRM & Pipeline Build",
-      "AI Agents & Chatbots",
-      "API & Multi-Platform Sync",
-      "30 Days Dedicated Support",
-      "Monthly Optimization Review",
+      "End-to-end workflow build across 5+ tools",
+      "Custom AI agents (OpenAI / Claude)",
+      "Multi-platform API & data sync",
+      "Monitoring dashboard + error alerts",
+      "60 days dedicated support + monthly optimization call",
     ],
     cta: "Book a Call",
     highlighted: false,
@@ -56,10 +56,10 @@ const PricingSection = () => {
           <div className="text-center mb-16">
             <span className="text-primary text-sm font-semibold uppercase tracking-widest">Packages</span>
             <h2 className="font-display text-3xl md:text-5xl font-bold mt-4 mb-6">
-              Simple, Transparent <span className="gradient-text">Packages</span>
+              Clear Scope, <span className="gradient-text">Fixed Turnaround</span>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Choose a package that fits your needs. Every engagement starts with a free strategy call.
+              Every package has defined deliverables and a turnaround window. No open-ended retainers, no surprises.
             </p>
           </div>
         </AnimatedSection>
@@ -77,9 +77,12 @@ const PricingSection = () => {
                     Most Popular
                   </span>
                 )}
-                <div className="mb-6">
+                <div className="mb-4">
                   <h3 className="font-display text-2xl font-bold mb-1">{pkg.name}</h3>
                   <p className="text-muted-foreground text-sm">{pkg.tagline}</p>
+                </div>
+                <div className="inline-flex items-center gap-2 text-xs font-semibold text-primary bg-primary/10 px-3 py-1.5 rounded-full w-fit mb-5">
+                  <Clock className="w-3.5 h-3.5" /> Turnaround: {pkg.turnaround}
                 </div>
                 <p className="text-muted-foreground text-xs mb-6 italic">
                   Custom pricing based on scope
@@ -93,11 +96,9 @@ const PricingSection = () => {
                   ))}
                 </ul>
                 <a
-                  href="#contact"
+                  href="#booking"
                   className={`inline-flex items-center justify-center gap-2 text-sm font-semibold py-3 rounded-lg transition-all duration-300 ${
-                    pkg.highlighted
-                      ? "btn-primary"
-                      : "btn-outline-glow"
+                    pkg.highlighted ? "btn-primary" : "btn-outline-glow"
                   }`}
                 >
                   {pkg.cta} <ArrowRight className="w-4 h-4" />

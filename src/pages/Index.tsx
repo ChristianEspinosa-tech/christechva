@@ -3,8 +3,6 @@ import HeroSection from "@/components/HeroSection";
 import StatsBar from "@/components/StatsBar";
 import TrustBar from "@/components/TrustBar";
 import AboutSection from "@/components/AboutSection";
-import ToolsSection from "@/components/ToolsSection";
-import ServicesSection from "@/components/ServicesSection";
 import ProcessSection from "@/components/ProcessSection";
 import BeforeAfterSection from "@/components/BeforeAfterSection";
 import WorkflowDiagramSection from "@/components/WorkflowDiagramSection";
@@ -27,8 +25,6 @@ const Index = () => {
       <StatsBar />
       <TrustBar />
       <AboutSection />
-      <ToolsSection />
-      <ServicesSection />
       <ProcessSection />
       <BeforeAfterSection />
       <WorkflowDiagramSection />

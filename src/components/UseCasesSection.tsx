@@ -1,27 +1,37 @@
-import { Facebook, Mail, Calendar, Receipt, MessageSquare } from "lucide-react";
+import { Facebook, Mail, Calendar, Receipt, MessageSquare, Workflow } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 
 const cases = [
-  { icon: Facebook, title: "Lead Capture from Facebook to CRM", desc: "Automatically capture leads from Facebook ads and route them into your CRM with tags and follow-up sequences." },
-  { icon: Mail, title: "Automated Email Follow-Ups", desc: "Smart email sequences that nurture leads, re-engage cold prospects, and keep your pipeline warm." },
-  { icon: Calendar, title: "Appointment Booking Automation", desc: "Self-service scheduling with confirmations, reminders, and calendar sync across platforms." },
-  { icon: Receipt, title: "Invoice & Payment Tracking", desc: "Auto-generate invoices, send payment reminders, and track transactions seamlessly." },
-  { icon: MessageSquare, title: "AI Chatbot for Customer Support", desc: "Deploy intelligent chatbots that handle FAQs, qualify leads, and route complex queries to your team." },
+  { icon: Facebook, title: "Lead Capture from Facebook to CRM", desc: "Capture Facebook ad leads in real time and route them into GoHighLevel or HubSpot with tagging and instant follow-up." },
+  { icon: Mail, title: "Automated Email Follow-Ups", desc: "Multi-step nurture sequences that re-engage cold leads and keep prospects warm without manual sends." },
+  { icon: Calendar, title: "Appointment Booking Automation", desc: "Self-serve scheduling via Calendly + n8n with confirmations, reminders, and post-call follow-ups." },
+  { icon: Receipt, title: "Invoice & Payment Tracking", desc: "Stripe → QuickBooks sync that auto-generates invoices, sends receipts, and chases overdue payments." },
+  { icon: MessageSquare, title: "AI Chatbot for Customer Support", desc: "OpenAI agents that handle FAQs, qualify leads, and escalate complex queries to your team." },
+  { icon: Workflow, title: "Custom API Integrations", desc: "Connect any tool to any tool — Shopify, Airtable, Notion, Slack — using n8n, Make, or Zapier." },
 ];
+
+const tools = ["n8n", "Make", "Zapier", "GoHighLevel", "OpenAI", "Lovable"];
 
 const UseCasesSection = () => {
   return (
     <section id="solutions" className="py-24 section-gradient">
       <div className="container mx-auto px-4">
         <AnimatedSection>
-          <div className="text-center mb-16">
-            <span className="text-primary text-sm font-semibold uppercase tracking-widest">Solutions</span>
+          <div className="text-center mb-12">
+            <span className="text-primary text-sm font-semibold uppercase tracking-widest">What I Build</span>
             <h2 className="font-display text-3xl md:text-5xl font-bold mt-4 mb-6">
-              Example Solutions <span className="gradient-text">I Can Build</span>
+              Automations I Can <span className="gradient-text">Build For You</span>
             </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              Real-world automation scenarios designed to save you time and drive results.
+            <p className="text-muted-foreground max-w-2xl mx-auto mb-6">
+              Real-world workflows designed to remove repetitive work and unlock growth — powered by the tools I specialize in.
             </p>
+            <div className="flex flex-wrap items-center justify-center gap-2 max-w-2xl mx-auto">
+              {tools.map((t) => (
+                <span key={t} className="text-xs font-semibold px-3 py-1.5 rounded-full bg-secondary border border-border/50 text-foreground/80">
+                  {t}
+                </span>
+              ))}
+            </div>
           </div>
         </AnimatedSection>
 
