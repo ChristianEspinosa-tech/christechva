@@ -64,58 +64,8 @@ const caseStudies = [
     gradient: "from-primary/20 to-primary/5",
     featured: true,
   },
-  {
-    title: "LinkedIn AI Outreach Agent",
-    client: "B2B Agency",
-    industry: "Marketing & Sales",
-    category: "Lead Generation & CRM Sync",
-    demoUrl: "https://your-demo-link-4.com", // 🔗 Replace with your Loom/YouTube link
-    problem: "Manual LinkedIn prospecting taking 20+ hours/week with low connection-to-meeting conversion.",
-    solution: "n8n + OpenAI + LinkedIn API → automated profile scraping, personalized message drafting, and CRM logging.",
-    results: [
-      { icon: TrendingUp, label: "Reply Rate", value: "+45%" },
-      { icon: Clock, label: "Hrs Saved/Week", value: "20+" },
-      { icon: Users, label: "Meetings Booked", value: "3x" },
-    ],
-    tools: ["n8n", "OpenAI", "LinkedIn", "HubSpot"],
-    gradient: "from-violet-500/20 to-violet-500/5",
-    featured: false,
-  },
-  {
-    title: "WhatsApp E-Commerce Notifications",
-    client: "DTC Fashion Brand",
-    industry: "E-commerce",
-    category: "E-commerce & Order Flows",
-    demoUrl: "https://your-demo-link-5.com", // 🔗 Replace with your Loom/YouTube link
-    problem: "Customers missing order updates via email, leading to high support volume about order status.",
-    solution: "n8n + WhatsApp Business API + Shopify → real-time order confirmations, shipping updates, and delivery alerts.",
-    results: [
-      { icon: Users, label: "Support Tickets", value: "-55%" },
-      { icon: TrendingUp, label: "Open Rate", value: "98%" },
-      { icon: DollarSign, label: "Repeat Orders", value: "+30%" },
-    ],
-    tools: ["n8n", "WhatsApp API", "Shopify", "Twilio"],
-    gradient: "from-green-500/20 to-green-500/5",
-    featured: false,
-  },
-  {
-    title: "Invoice-to-Accounting Automation",
-    client: "Freelance Agency",
-    industry: "Finance & Operations",
-    category: "Custom Integrations",
-    demoUrl: "https://your-demo-link-6.com", // 🔗 Replace with your Loom/YouTube link
-    problem: "Manual invoice entry into accounting software causing delays and errors in financial reporting.",
-    solution: "n8n + Stripe + QuickBooks → auto-generate invoices on payment, sync to accounting, and send receipts.",
-    results: [
-      { icon: Clock, label: "Processing Time", value: "-90%" },
-      { icon: DollarSign, label: "Errors Eliminated", value: "99%" },
-      { icon: TrendingUp, label: "Faster Reporting", value: "5x" },
-    ],
-    tools: ["n8n", "Stripe", "QuickBooks", "Gmail"],
-    gradient: "from-amber-500/20 to-amber-500/5",
-    featured: false,
-  },
 ];
+
 
 const CaseStudiesSection = () => {
   const [active, setActive] = useState("All");
@@ -135,10 +85,10 @@ const CaseStudiesSection = () => {
           <div className="text-center mb-10">
             <span className="text-primary text-sm font-semibold uppercase tracking-widest">Portfolio</span>
             <h2 className="font-display text-3xl md:text-5xl font-bold mt-4 mb-6">
-              Selected AI & n8n Automations – <span className="gradient-text">Real Business Impact</span>
+              3 Builds, <span className="gradient-text">3 Measurable Wins</span>
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              I've built 10–15+ production workflows saving clients 10–75+ hours/week. Here are my strongest examples across industries.
+              Each card shows the problem, the exact stack, and the result. No vanity metrics.
             </p>
           </div>
         </AnimatedSection>
