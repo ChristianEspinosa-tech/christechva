@@ -16,8 +16,14 @@ import BookingSection from "@/components/BookingSection";
 import CTASection from "@/components/CTASection";
 import ContactSection from "@/components/ContactSection";
 import Footer from "@/components/Footer";
+import { useEffect } from "react";
 
 const Index = () => {
+  useEffect(() => {
+    if ((window as any).ml) {
+      (window as any).ml('show', 'uFCDoS', true);
+    }
+  }, []);
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
