@@ -1,6 +1,9 @@
 type AnalyticsEvent =
   | "schedule_call_click"
-  | "lets_talk_click";
+  | "lets_talk_click"
+  | "social_click"
+  | "external_link_click";
+
 
 interface EventParams {
   location: string;
