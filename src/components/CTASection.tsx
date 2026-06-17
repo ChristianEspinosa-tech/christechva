@@ -1,5 +1,7 @@
 import { Calendar } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
+import { trackEvent } from "@/lib/analytics";
+
 
 const CTASection = () => {
   return (
@@ -18,7 +20,11 @@ const CTASection = () => {
                 One 30-minute call. We map your highest-ROI workflow and you walk away with a clear plan — whether we work together or not.
               </p>
               <div className="flex justify-center">
-                <a href="#booking" className="btn-primary inline-flex items-center justify-center gap-2 text-base px-8 py-4">
+                <a
+                  href="#booking"
+                  onClick={() => trackEvent("schedule_call_click", { location: "cta_section" })}
+                  className="btn-primary inline-flex items-center justify-center gap-2 text-base px-8 py-4"
+                >
                   <Calendar className="w-5 h-5" /> Schedule a Free Strategy Call
                 </a>
               </div>

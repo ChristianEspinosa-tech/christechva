@@ -1,5 +1,7 @@
 import { Check, ArrowRight, Star, Zap, Clock } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
+import { trackEvent } from "@/lib/analytics";
+
 
 const packages = [
   {
@@ -97,6 +99,12 @@ const PricingSection = () => {
                 </ul>
                 <a
                   href="#booking"
+                  onClick={() =>
+                    trackEvent(pkg.cta === "Let's Talk" ? "lets_talk_click" : "schedule_call_click", {
+                      location: `pricing_${pkg.name.toLowerCase()}`,
+                      label: pkg.cta,
+                    })
+                  }
                   className={`inline-flex items-center justify-center gap-2 text-sm font-semibold py-3 rounded-lg transition-all duration-300 ${
                     pkg.highlighted ? "btn-primary" : "btn-outline-glow"
                   }`}
