@@ -2,6 +2,8 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Zap } from "lucide-react";
 import profileImg from "@/assets/profile.png";
+import { trackEvent } from "@/lib/analytics";
+
 
 const navLinks = [
   { label: "About", href: "#about" },
@@ -37,7 +39,11 @@ const Navbar = () => {
               {l.label}
             </a>
           ))}
-          <a href="#contact" className="btn-primary text-sm py-2 px-6 rounded-lg inline-block">
+          <a
+            href="#contact"
+            onClick={() => trackEvent("lets_talk_click", { location: "navbar_desktop" })}
+            className="btn-primary text-sm py-2 px-6 rounded-lg inline-block"
+          >
             Let's Talk
           </a>
         </div>
@@ -66,7 +72,14 @@ const Navbar = () => {
                   {l.label}
                 </a>
               ))}
-              <a href="#contact" onClick={() => setOpen(false)} className="btn-primary text-center text-sm py-2 rounded-lg">
+              <a
+                href="#contact"
+                onClick={() => {
+                  setOpen(false);
+                  trackEvent("lets_talk_click", { location: "navbar_mobile" });
+                }}
+                className="btn-primary text-center text-sm py-2 rounded-lg"
+              >
                 Let's Talk
               </a>
             </div>

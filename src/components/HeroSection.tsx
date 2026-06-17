@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { Calendar } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
+import { trackEvent } from "@/lib/analytics";
+
 
 const HeroSection = () => {
   return (
@@ -59,7 +61,11 @@ const HeroSection = () => {
           transition={{ duration: 0.7, delay: 0.5 }}
           className="flex justify-center"
         >
-          <a href="#booking" className="btn-primary inline-flex items-center justify-center gap-2 text-base px-8 py-4">
+          <a
+            href="#booking"
+            onClick={() => trackEvent("schedule_call_click", { location: "hero" })}
+            className="btn-primary inline-flex items-center justify-center gap-2 text-base px-8 py-4"
+          >
             <Calendar className="w-5 h-5" /> Schedule a Free Strategy Call
           </a>
         </motion.div>
