@@ -1,6 +1,8 @@
 import { TrendingUp, Clock, Users, DollarSign, ExternalLink, ChevronDown, ChevronUp } from "lucide-react";
 import { useState } from "react";
 import AnimatedSection from "./AnimatedSection";
+import { trackEvent } from "@/lib/analytics";
+
 
 const categories = [
   "All",
@@ -190,11 +192,16 @@ const ProjectCard = ({ study, delay }: ProjectCardProps) => (
           ))}
         </div>
 
-        {/* ✅ UPDATED: Now a real clickable link */}
         <a
           href={study.demoUrl}
           target="_blank"
           rel="noopener noreferrer"
+          onClick={() =>
+            trackEvent("external_link_click", {
+              location: "case_study",
+              label: study.title,
+            })
+          }
           className="mt-3 flex items-center justify-center gap-2 w-full py-2.5 rounded-lg text-sm font-semibold text-primary border border-primary/30 bg-primary/5 hover:bg-primary/10 transition-colors duration-200"
         >
           <ExternalLink className="w-4 h-4" />
