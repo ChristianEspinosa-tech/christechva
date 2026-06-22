@@ -1,20 +1,37 @@
-import { useEffect, useState } from "react";
-import { subscribeToAnalyticsEvents, AnalyticsEventData } from "@/lib/analytics";
+import { useEffect, useMemo, useState } from "react";
+import { subscribeToAnalyticsEvents, AnalyticsEventData, AnalyticsEvent } from "@/lib/analytics";
 
 const MAX_EVENTS = 10;
+
+const ALL_EVENT_TYPES: AnalyticsEvent[] = [
+  "schedule_call_click",
+  "lets_talk_click",
+  "social_click",
+  "external_link_click",
+];
 
 export default function DevAnalyticsDebugger() {
   const [events, setEvents] = useState<AnalyticsEventData[]>([]);
   const [open, setOpen] = useState(false);
+  const [activeTypes, setActiveTypes] = useState<AnalyticsEvent[]>(ALL_EVENT_TYPES);
 
   useEffect(() => {
     const unsubscribe = subscribeToAnalyticsEvents((data) => {
-      if (data.event === "external_link_click") {
-        setEvents((prev) => [data, ...prev].slice(0, MAX_EVENTS));
-      }
+      setEvents((prev) => [data, ...prev].slice(0, MAX_EVENTS));
     });
     return unsubscribe;
   }, []);
+
+  const visibleEvents = useMemo(
+    () => events.filter((e) => activeTypes.includes(e.event)),
+    [events, activeTypes]
+  );
+
+  const toggleType = (type: AnalyticsEvent) => {
+    setActiveTypes((prev) =>
+      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
+    );
+  };
 
   if (!import.meta.env.DEV) return null;
 
@@ -26,15 +43,15 @@ export default function DevAnalyticsDebugger() {
       >
         <span className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          External Link Debug
+          Analytics Debug
         </span>
-        <span className="text-xs text-muted-foreground font-mono">{events.length}</span>
+        <span className="text-xs text-muted-foreground font-mono">{visibleEvents.length}</span>
       </button>
 
       {open && (
-        <div className="mt-2 rounded-lg bg-card/95 border border-border shadow-xl backdrop-blur overflow-hidden max-h-96 overflow-y-auto">
+        <div className="mt-2 rounded-lg bg-card/95 border border-border shadow-xl backdrop-blur overflow-hidden max-h-[28rem] flex flex-col">
           <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-secondary/30">
-            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Recent Events</span>
+            <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Filters</span>
             <button
               onClick={() => setEvents([])}
               className="text-xs text-muted-foreground hover:text-primary transition-colors"
@@ -43,29 +60,54 @@ export default function DevAnalyticsDebugger() {
             </button>
           </div>
 
-          {events.length === 0 ? (
-            <p className="px-4 py-6 text-xs text-muted-foreground text-center">
-              No external_link_click events fired yet.
-            </p>
-          ) : (
-            <ul className="divide-y divide-border">
-              {events.map((e, i) => (
-                <li key={`${e.timestamp}-${i}`} className="px-4 py-3">
-                  <div className="flex items-center justify-between mb-1">
-                    <span className="text-xs font-mono text-primary">{e.label ?? "Email"}</span>
-                    <span className="text-[10px] text-muted-foreground font-mono">
-                      {new Date(e.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
-                    </span>
-                  </div>
-                  <p className="text-xs text-muted-foreground truncate">
-                    location: <span className="text-foreground/80">{e.location}</span>
-                  </p>
-                </li>
-              ))}
-            </ul>
-          )}
+          <div className="px-3 py-2 border-b border-border flex flex-wrap gap-2">
+            {ALL_EVENT_TYPES.map((type) => {
+              const active = activeTypes.includes(type);
+              return (
+                <button
+                  key={type}
+                  onClick={() => toggleType(type)}
+                  className={`text-[10px] font-semibold px-2 py-1 rounded-full border transition-colors ${
+                    active
+                      ? "bg-primary text-primary-foreground border-primary"
+                      : "bg-secondary/50 text-muted-foreground border-border hover:bg-secondary hover:text-foreground"
+                  }`}
+                >
+                  {type}
+                </button>
+              );
+            })}
+          </div>
+
+          <div className="overflow-y-auto flex-1">
+            {visibleEvents.length === 0 ? (
+              <p className="px-4 py-6 text-xs text-muted-foreground text-center">
+                No events match the selected filters.
+              </p>
+            ) : (
+              <ul className="divide-y divide-border">
+                {visibleEvents.map((e, i) => (
+                  <li key={`${e.timestamp}-${i}`} className="px-4 py-3">
+                    <div className="flex items-center justify-between mb-1 gap-2">
+                      <span className="text-xs font-mono text-primary truncate">{e.event}</span>
+                      <span className="text-[10px] text-muted-foreground font-mono shrink-0">
+                        {new Date(e.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
+                      </span>
+                    </div>
+                    <p className="text-xs text-foreground/80 truncate">
+                      label: <span className="text-muted-foreground">{e.label ?? "—"}</span>
+                    </p>
+                    <p className="text-xs text-foreground/80 truncate">
+                      location: <span className="text-muted-foreground">{e.location}</span>
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
         </div>
       )}
     </div>
   );
 }
+
