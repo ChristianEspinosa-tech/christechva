@@ -21,7 +21,9 @@ const subscribers = new Set<EventSubscriber>();
 
 export function subscribeToAnalyticsEvents(cb: EventSubscriber) {
   subscribers.add(cb);
-  return () => subscribers.delete(cb);
+  return () => {
+    subscribers.delete(cb);
+  };
 }
 
 export function trackEvent(event: AnalyticsEvent, params: EventParams) {
