@@ -79,7 +79,18 @@ const ContactSection = () => {
                 </div>
                 <div>
                   <h4 className="font-display font-semibold mb-1">Email</h4>
-                  <p className="text-muted-foreground text-sm">christian.t.espinosa@gmail.com</p>
+                  <a
+                    href="mailto:christian.t.espinosa@gmail.com"
+                    onClick={() =>
+                      trackEvent("external_link_click", {
+                        location: "contact",
+                        label: "Email",
+                      })
+                    }
+                    className="text-muted-foreground text-sm hover:text-primary transition-colors"
+                  >
+                    christian.t.espinosa@gmail.com
+                  </a>
                 </div>
               </div>
 
