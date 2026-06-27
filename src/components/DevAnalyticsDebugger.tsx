@@ -17,6 +17,7 @@ export default function DevAnalyticsDebugger() {
   const [open, setOpen] = useState(false);
   const [activeTypes, setActiveTypes] = useState<AnalyticsEvent[]>(ALL_EVENT_TYPES);
   const [searchQuery, setSearchQuery] = useState("");
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const unsubscribe = subscribeToAnalyticsEvents((data) => {
