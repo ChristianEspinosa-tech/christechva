@@ -12,13 +12,33 @@ const ALL_EVENT_TYPES: AnalyticsEvent[] = [
   "external_link_click",
 ];
 
+const STORAGE_KEY = "__dev_analytics_debugger_state__";
+
+function getPersistedState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) return null;
+    const parsed = JSON.parse(raw);
+    return parsed as Partial<{
+      activeTypes: AnalyticsEvent[];
+      searchQuery: string;
+      autoScroll: boolean;
+    }>;
+  } catch {
+    return null;
+  }
+}
+
 export default function DevAnalyticsDebugger() {
+  const persisted = getPersistedState();
   const [events, setEvents] = useState<AnalyticsEventData[]>([]);
   const [open, setOpen] = useState(false);
-  const [activeTypes, setActiveTypes] = useState<AnalyticsEvent[]>(ALL_EVENT_TYPES);
-  const [searchQuery, setSearchQuery] = useState("");
+  const [activeTypes, setActiveTypes] = useState<AnalyticsEvent[]>(
+    persisted?.activeTypes ?? ALL_EVENT_TYPES
+  );
+  const [searchQuery, setSearchQuery] = useState(persisted?.searchQuery ?? "");
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
-  const [autoScroll, setAutoScroll] = useState(true);
+  const [autoScroll, setAutoScroll] = useState(persisted?.autoScroll ?? true);
   const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -33,6 +53,11 @@ export default function DevAnalyticsDebugger() {
       scrollRef.current.scrollTop = 0;
     }
   }, [events, autoScroll]);
+
+  useEffect(() => {
+    const state = { activeTypes, searchQuery, autoScroll };
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  }, [activeTypes, searchQuery, autoScroll]);
 
   const visibleEvents = useMemo(
     () =>
