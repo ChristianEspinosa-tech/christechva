@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { subscribeToAnalyticsEvents, AnalyticsEventData, AnalyticsEvent } from "@/lib/analytics";
 import { Input } from "@/components/ui/input";
-import { Copy, Check } from "lucide-react";
+import { Copy, Check, Pin, PinOff } from "lucide-react";
 
 const MAX_EVENTS = 10;
 
