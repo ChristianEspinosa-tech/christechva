@@ -91,6 +91,16 @@ export default function DevAnalyticsDebugger() {
             })}
           </div>
 
+          <div className="px-3 py-2 border-b border-border">
+            <Input
+              type="text"
+              placeholder="Search by label or location..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="h-8 text-xs"
+            />
+          </div>
+
           <div className="overflow-y-auto flex-1">
             {visibleEvents.length === 0 ? (
               <p className="px-4 py-6 text-xs text-muted-foreground text-center">
