@@ -1,7 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { subscribeToAnalyticsEvents, AnalyticsEventData, AnalyticsEvent } from "@/lib/analytics";
 import { Input } from "@/components/ui/input";
-import { Copy, Check } from "lucide-react";
+import { Copy, Check, Pin, PinOff } from "lucide-react";
 
 const MAX_EVENTS = 10;
 
@@ -18,6 +18,8 @@ export default function DevAnalyticsDebugger() {
   const [activeTypes, setActiveTypes] = useState<AnalyticsEvent[]>(ALL_EVENT_TYPES);
   const [searchQuery, setSearchQuery] = useState("");
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const [autoScroll, setAutoScroll] = useState(true);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const unsubscribe = subscribeToAnalyticsEvents((data) => {
@@ -25,6 +27,12 @@ export default function DevAnalyticsDebugger() {
     });
     return unsubscribe;
   }, []);
+
+  useEffect(() => {
+    if (autoScroll && scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
+  }, [events, autoScroll]);
 
   const visibleEvents = useMemo(
     () =>
@@ -66,12 +74,26 @@ export default function DevAnalyticsDebugger() {
         <div className="mt-2 rounded-lg bg-card/95 border border-border shadow-xl backdrop-blur overflow-hidden max-h-[28rem] flex flex-col">
           <div className="flex items-center justify-between px-3 py-2 border-b border-border bg-secondary/30">
             <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Filters</span>
-            <button
-              onClick={() => setEvents([])}
-              className="text-xs text-muted-foreground hover:text-primary transition-colors"
-            >
-              Clear
-            </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => setAutoScroll((prev) => !prev)}
+                className={`flex items-center gap-1 text-[10px] font-semibold px-2 py-1 rounded-full border transition-colors ${
+                  autoScroll
+                    ? "bg-primary text-primary-foreground border-primary"
+                    : "bg-secondary/50 text-muted-foreground border-border hover:bg-secondary hover:text-foreground"
+                }`}
+                title="Toggle auto-scroll to newest event"
+              >
+                {autoScroll ? <Pin className="w-3 h-3" /> : <PinOff className="w-3 h-3" />}
+                Auto-scroll
+              </button>
+              <button
+                onClick={() => setEvents([])}
+                className="text-xs text-muted-foreground hover:text-primary transition-colors"
+              >
+                Clear
+              </button>
+            </div>
           </div>
 
           <div className="px-3 py-2 border-b border-border flex flex-wrap gap-2">
@@ -103,7 +125,7 @@ export default function DevAnalyticsDebugger() {
             />
           </div>
 
-          <div className="overflow-y-auto flex-1">
+          <div ref={scrollRef} className="overflow-y-auto flex-1">
             {visibleEvents.length === 0 ? (
               <p className="px-4 py-6 text-xs text-muted-foreground text-center">
                 No events match the selected filters.
