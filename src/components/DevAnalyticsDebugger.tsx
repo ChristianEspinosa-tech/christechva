@@ -80,6 +80,11 @@ export default function DevAnalyticsDebugger() {
     );
   };
 
+  const handleReset = () => {
+    setSearchQuery("");
+    setActiveTypes(ALL_EVENT_TYPES);
+  };
+
   if (!import.meta.env.DEV) return null;
 
   return (
