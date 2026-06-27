@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { subscribeToAnalyticsEvents, AnalyticsEventData, AnalyticsEvent } from "@/lib/analytics";
 import { Input } from "@/components/ui/input";
+import { Copy, Check } from "lucide-react";
 
 const MAX_EVENTS = 10;
 
@@ -16,6 +17,7 @@ export default function DevAnalyticsDebugger() {
   const [open, setOpen] = useState(false);
   const [activeTypes, setActiveTypes] = useState<AnalyticsEvent[]>(ALL_EVENT_TYPES);
   const [searchQuery, setSearchQuery] = useState("");
+  const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const unsubscribe = subscribeToAnalyticsEvents((data) => {
@@ -109,12 +111,29 @@ export default function DevAnalyticsDebugger() {
             ) : (
               <ul className="divide-y divide-border">
                 {visibleEvents.map((e, i) => (
-                  <li key={`${e.timestamp}-${i}`} className="px-4 py-3">
+                  <li key={`${e.timestamp}-${i}`} className="px-4 py-3 relative group">
                     <div className="flex items-center justify-between mb-1 gap-2">
                       <span className="text-xs font-mono text-primary truncate">{e.event}</span>
-                      <span className="text-[10px] text-muted-foreground font-mono shrink-0">
-                        {new Date(e.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
-                      </span>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <span className="text-[10px] text-muted-foreground font-mono">
+                          {new Date(e.timestamp).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" })}
+                        </span>
+                        <button
+                          onClick={async () => {
+                            await navigator.clipboard.writeText(JSON.stringify(e, null, 2));
+                            setCopiedIndex(i);
+                            setTimeout(() => setCopiedIndex((prev) => (prev === i ? null : prev)), 1500);
+                          }}
+                          className="p-1 rounded-md hover:bg-secondary transition-colors"
+                          title="Copy event payload"
+                        >
+                          {copiedIndex === i ? (
+                            <Check className="w-3 h-3 text-green-500" />
+                          ) : (
+                            <Copy className="w-3 h-3 text-muted-foreground" />
+                          )}
+                        </button>
+                      </div>
                     </div>
                     <p className="text-xs text-foreground/80 truncate">
                       label: <span className="text-muted-foreground">{e.label ?? "—"}</span>
