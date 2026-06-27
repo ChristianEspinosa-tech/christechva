@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { subscribeToAnalyticsEvents, AnalyticsEventData, AnalyticsEvent } from "@/lib/analytics";
 import { Input } from "@/components/ui/input";
-import { Copy, Check, Pin, PinOff } from "lucide-react";
+import { Copy, Check, Pin, PinOff, RotateCcw } from "lucide-react";
 
 const MAX_EVENTS = 10;
 
@@ -80,6 +80,11 @@ export default function DevAnalyticsDebugger() {
     );
   };
 
+  const handleReset = () => {
+    setSearchQuery("");
+    setActiveTypes(ALL_EVENT_TYPES);
+  };
+
   if (!import.meta.env.DEV) return null;
 
   return (
@@ -111,6 +116,14 @@ export default function DevAnalyticsDebugger() {
               >
                 {autoScroll ? <Pin className="w-3 h-3" /> : <PinOff className="w-3 h-3" />}
                 Auto-scroll
+              </button>
+              <button
+                onClick={handleReset}
+                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
+                title="Reset filters and search"
+              >
+                <RotateCcw className="w-3 h-3" />
+                Reset
               </button>
               <button
                 onClick={() => setEvents([])}
