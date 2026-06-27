@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { subscribeToAnalyticsEvents, AnalyticsEventData, AnalyticsEvent } from "@/lib/analytics";
+import { Input } from "@/components/ui/input";
 
 const MAX_EVENTS = 10;
 
