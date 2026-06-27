@@ -25,8 +25,18 @@ export default function DevAnalyticsDebugger() {
   }, []);
 
   const visibleEvents = useMemo(
-    () => events.filter((e) => activeTypes.includes(e.event)),
-    [events, activeTypes]
+    () =>
+      events.filter((e) => {
+        const matchesType = activeTypes.includes(e.event);
+        if (!matchesType) return false;
+        if (!searchQuery.trim()) return true;
+        const q = searchQuery.toLowerCase();
+        return (
+          (e.label ?? "").toLowerCase().includes(q) ||
+          (e.location ?? "").toLowerCase().includes(q)
+        );
+      }),
+    [events, activeTypes, searchQuery]
   );
 
   const toggleType = (type: AnalyticsEvent) => {
