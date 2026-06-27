@@ -118,6 +118,14 @@ export default function DevAnalyticsDebugger() {
                 Auto-scroll
               </button>
               <button
+                onClick={handleReset}
+                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
+                title="Reset filters and search"
+              >
+                <RotateCcw className="w-3 h-3" />
+                Reset
+              </button>
+              <button
                 onClick={() => setEvents([])}
                 className="text-xs text-muted-foreground hover:text-primary transition-colors"
               >
