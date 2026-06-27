@@ -18,6 +18,8 @@ export default function DevAnalyticsDebugger() {
   const [activeTypes, setActiveTypes] = useState<AnalyticsEvent[]>(ALL_EVENT_TYPES);
   const [searchQuery, setSearchQuery] = useState("");
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
+  const [autoScroll, setAutoScroll] = useState(true);
+  const scrollRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const unsubscribe = subscribeToAnalyticsEvents((data) => {
@@ -25,6 +27,12 @@ export default function DevAnalyticsDebugger() {
     });
     return unsubscribe;
   }, []);
+
+  useEffect(() => {
+    if (autoScroll && scrollRef.current) {
+      scrollRef.current.scrollTop = 0;
+    }
+  }, [events, autoScroll]);
 
   const visibleEvents = useMemo(
     () =>
