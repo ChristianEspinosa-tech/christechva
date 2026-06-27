@@ -125,7 +125,7 @@ export default function DevAnalyticsDebugger() {
             />
           </div>
 
-          <div className="overflow-y-auto flex-1">
+          <div ref={scrollRef} className="overflow-y-auto flex-1">
             {visibleEvents.length === 0 ? (
               <p className="px-4 py-6 text-xs text-muted-foreground text-center">
                 No events match the selected filters.
