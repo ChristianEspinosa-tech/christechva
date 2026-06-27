@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { subscribeToAnalyticsEvents, AnalyticsEventData, AnalyticsEvent } from "@/lib/analytics";
+import { Input } from "@/components/ui/input";
 
 const MAX_EVENTS = 10;
 
@@ -14,6 +15,7 @@ export default function DevAnalyticsDebugger() {
   const [events, setEvents] = useState<AnalyticsEventData[]>([]);
   const [open, setOpen] = useState(false);
   const [activeTypes, setActiveTypes] = useState<AnalyticsEvent[]>(ALL_EVENT_TYPES);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     const unsubscribe = subscribeToAnalyticsEvents((data) => {
@@ -23,8 +25,18 @@ export default function DevAnalyticsDebugger() {
   }, []);
 
   const visibleEvents = useMemo(
-    () => events.filter((e) => activeTypes.includes(e.event)),
-    [events, activeTypes]
+    () =>
+      events.filter((e) => {
+        const matchesType = activeTypes.includes(e.event);
+        if (!matchesType) return false;
+        if (!searchQuery.trim()) return true;
+        const q = searchQuery.toLowerCase();
+        return (
+          (e.label ?? "").toLowerCase().includes(q) ||
+          (e.location ?? "").toLowerCase().includes(q)
+        );
+      }),
+    [events, activeTypes, searchQuery]
   );
 
   const toggleType = (type: AnalyticsEvent) => {
@@ -77,6 +89,16 @@ export default function DevAnalyticsDebugger() {
                 </button>
               );
             })}
+          </div>
+
+          <div className="px-3 py-2 border-b border-border">
+            <Input
+              type="text"
+              placeholder="Search by label or location..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="h-8 text-xs"
+            />
           </div>
 
           <div className="overflow-y-auto flex-1">
