@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { subscribeToAnalyticsEvents, AnalyticsEventData, AnalyticsEvent } from "@/lib/analytics";
 import { Input } from "@/components/ui/input";
-import { Copy, Check, Pin, PinOff, RotateCcw, Download } from "lucide-react";
+import { Copy, Check, Pin, PinOff, RotateCcw, Download, FileSpreadsheet } from "lucide-react";
 
 const MAX_EVENTS = 10;
 
