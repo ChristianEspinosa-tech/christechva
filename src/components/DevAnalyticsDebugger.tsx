@@ -87,6 +87,11 @@ export default function DevAnalyticsDebugger() {
 
   const handleExport = () => {
     const exportData = {
+      summary: {
+        totalEvents: events.length,
+        filteredEvents: visibleEvents.length,
+        activeFilterLabels: activeTypes,
+      },
       metadata: {
         activeFilters: activeTypes,
         searchQuery: searchQuery || null,
