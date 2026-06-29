@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { subscribeToAnalyticsEvents, AnalyticsEventData, AnalyticsEvent } from "@/lib/analytics";
 import { Input } from "@/components/ui/input";
-import { Copy, Check, Pin, PinOff, RotateCcw, Download } from "lucide-react";
+import { Copy, Check, Pin, PinOff, RotateCcw, Download, FileSpreadsheet } from "lucide-react";
 
 const MAX_EVENTS = 10;
 
@@ -108,6 +108,30 @@ export default function DevAnalyticsDebugger() {
     URL.revokeObjectURL(url);
   };
 
+  const handleExportCSV = () => {
+    const headers = ["timestamp", "event", "label", "location"];
+    const escapeCsv = (val: string | undefined) => {
+      const str = val ?? "";
+      if (str.includes(",") || str.includes('"') || str.includes("\n") || str.includes("\r")) {
+        return `"${str.replace(/"/g, '""')}"`;
+      }
+      return str;
+    };
+    const rows = visibleEvents.map((e) =>
+      [new Date(e.timestamp).toISOString(), e.event, e.label ?? "", e.location ?? ""]
+        .map(escapeCsv)
+        .join(",")
+    );
+    const csv = [headers.join(","), ...rows].join("\r\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `analytics-events-${new Date().toISOString().slice(0, 19).replace(/:/g, "-")}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   if (!import.meta.env.DEV) return null;
 
   return (
@@ -155,6 +179,14 @@ export default function DevAnalyticsDebugger() {
               >
                 <Download className="w-3 h-3" />
                 Export
+              </button>
+              <button
+                onClick={handleExportCSV}
+                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
+                title="Export filtered events as CSV"
+              >
+                <FileSpreadsheet className="w-3 h-3" />
+                CSV
               </button>
               <button
                 onClick={() => setEvents([])}
