@@ -108,6 +108,30 @@ export default function DevAnalyticsDebugger() {
     URL.revokeObjectURL(url);
   };
 
+  const handleExportCSV = () => {
+    const headers = ["timestamp", "event", "label", "location"];
+    const escapeCsv = (val: string | undefined) => {
+      const str = val ?? "";
+      if (str.includes(",") || str.includes('"') || str.includes("\n") || str.includes("\r")) {
+        return `"${str.replace(/"/g, '""')}"`;
+      }
+      return str;
+    };
+    const rows = visibleEvents.map((e) =>
+      [new Date(e.timestamp).toISOString(), e.event, e.label ?? "", e.location ?? ""]
+        .map(escapeCsv)
+        .join(",")
+    );
+    const csv = [headers.join(","), ...rows].join("\r\n");
+    const blob = new Blob([csv], { type: "text/csv" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `analytics-events-${new Date().toISOString().slice(0, 19).replace(/:/g, "-")}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   if (!import.meta.env.DEV) return null;
 
   return (
