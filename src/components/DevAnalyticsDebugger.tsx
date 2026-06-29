@@ -181,6 +181,14 @@ export default function DevAnalyticsDebugger() {
                 Export
               </button>
               <button
+                onClick={handleExportCSV}
+                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
+                title="Export filtered events as CSV"
+              >
+                <FileSpreadsheet className="w-3 h-3" />
+                CSV
+              </button>
+              <button
                 onClick={() => setEvents([])}
                 className="text-xs text-muted-foreground hover:text-primary transition-colors"
               >
