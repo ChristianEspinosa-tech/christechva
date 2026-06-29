@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { subscribeToAnalyticsEvents, AnalyticsEventData, AnalyticsEvent } from "@/lib/analytics";
 import { Input } from "@/components/ui/input";
-import { Copy, Check, Pin, PinOff, RotateCcw } from "lucide-react";
+import { Copy, Check, Pin, PinOff, RotateCcw, Download } from "lucide-react";
 
 const MAX_EVENTS = 10;
 
@@ -85,6 +85,16 @@ export default function DevAnalyticsDebugger() {
     setActiveTypes(ALL_EVENT_TYPES);
   };
 
+  const handleExport = () => {
+    const blob = new Blob([JSON.stringify(visibleEvents, null, 2)], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `analytics-events-${new Date().toISOString().slice(0, 19).replace(/:/g, "-")}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   if (!import.meta.env.DEV) return null;
 
   return (
@@ -124,6 +134,14 @@ export default function DevAnalyticsDebugger() {
               >
                 <RotateCcw className="w-3 h-3" />
                 Reset
+              </button>
+              <button
+                onClick={handleExport}
+                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
+                title="Export filtered events as JSON"
+              >
+                <Download className="w-3 h-3" />
+                Export
               </button>
               <button
                 onClick={() => setEvents([])}
