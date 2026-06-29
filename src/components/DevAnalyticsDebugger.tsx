@@ -136,6 +136,14 @@ export default function DevAnalyticsDebugger() {
                 Reset
               </button>
               <button
+                onClick={handleExport}
+                className="flex items-center gap-1 text-xs text-muted-foreground hover:text-primary transition-colors"
+                title="Export filtered events as JSON"
+              >
+                <Download className="w-3 h-3" />
+                Export
+              </button>
+              <button
                 onClick={() => setEvents([])}
                 className="text-xs text-muted-foreground hover:text-primary transition-colors"
               >
