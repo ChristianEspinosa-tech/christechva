@@ -86,7 +86,15 @@ export default function DevAnalyticsDebugger() {
   };
 
   const handleExport = () => {
-    const blob = new Blob([JSON.stringify(visibleEvents, null, 2)], { type: "application/json" });
+    const exportData = {
+      metadata: {
+        activeFilters: activeTypes,
+        searchQuery: searchQuery || null,
+        exportTimestamp: new Date().toISOString(),
+      },
+      events: visibleEvents,
+    };
+    const blob = new Blob([JSON.stringify(exportData, null, 2)], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
     a.href = url;
