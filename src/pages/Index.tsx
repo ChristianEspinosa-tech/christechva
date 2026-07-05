@@ -1,7 +1,6 @@
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import StatsBar from "@/components/StatsBar";
-import TrustBar from "@/components/TrustBar";
 import AboutSection from "@/components/AboutSection";
 import ProcessSection from "@/components/ProcessSection";
 import BeforeAfterSection from "@/components/BeforeAfterSection";
@@ -25,17 +24,16 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <StatsBar />
-      <TrustBar />
+      <WhyMeSection />
+      <CaseStudiesSection />
       <AboutSection />
       <ProcessSection />
       <BeforeAfterSection />
       <WorkflowDiagramSection />
       <UseCasesSection />
       <PricingSection />
-      <CaseStudiesSection />
       <TestimonialsSection />
       <FAQSection />
-      <WhyMeSection />
       <BookingSection />
      <div className="flex justify-center py-16 px-4">
         <div className="w-full max-w-md text-center">
