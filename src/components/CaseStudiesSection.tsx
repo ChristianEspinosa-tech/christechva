@@ -155,7 +155,7 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ study, delay }: ProjectCardProps) => (
   <AnimatedSection delay={delay}>
-    <div className="glass-card-hover h-full flex flex-col overflow-hidden rounded-xl">
+    <div id={study.anchorId} className="glass-card-hover h-full flex flex-col overflow-hidden rounded-xl scroll-mt-24">
       <div className={`bg-gradient-to-br ${study.gradient} p-6`}>
         <span className="inline-block text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-primary/15 text-primary border border-primary/20 mb-3">
           {study.industry}
