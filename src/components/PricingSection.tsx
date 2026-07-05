@@ -89,8 +89,8 @@ const PricingSection = () => {
                 <div className="inline-flex items-center gap-2 text-xs font-semibold text-primary bg-primary/10 px-3 py-1.5 rounded-full w-fit mb-5">
                   <Clock className="w-3.5 h-3.5" /> Turnaround: {pkg.turnaround}
                 </div>
-                <p className="text-muted-foreground text-xs mb-6 italic">
-                  Custom pricing based on scope
+                <p className="font-display text-lg font-bold text-foreground mb-6">
+                  {pkg.price}
                 </p>
                 <ul className="space-y-3 flex-1 mb-8">
                   {pkg.features.map((f) => (
