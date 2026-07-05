@@ -56,6 +56,7 @@ const caseStudies = [
     client: "Online Retail Brand",
     industry: "E-commerce",
     category: "E-commerce & Order Flows",
+    anchorId: "case-ecommerce-lead-pipeline",
     demoUrl: "https://your-demo-link-3.com", // 🔗 Replace with your Loom/YouTube link
     problem: "Manual lead tracking from Facebook Ads with slow follow-ups causing lost sales.",
     solution: "n8n + GoHighLevel + Facebook API → automated lead capture, CRM tagging, and instant email nurture sequences.",
