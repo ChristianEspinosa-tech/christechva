@@ -20,6 +20,7 @@ const caseStudies = [
     client: "Coaching & Consulting Firm",
     industry: "Coaching & Consulting",
     category: "Appointment & Booking Automation",
+    anchorId: "case-appointment-booking",
     demoUrl: "https://your-demo-link-1.com", // 🔗 Replace with your Loom/YouTube link
     problem: "High no-show rates and hours spent on manual scheduling, confirmations, and follow-ups.",
     solution: "n8n + Calendly + Google Sheets → full booking flow with auto-confirmations, reminders & post-session follow-ups.",
