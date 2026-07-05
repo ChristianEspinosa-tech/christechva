@@ -38,6 +38,7 @@ const caseStudies = [
     client: "SaaS Startup",
     industry: "SaaS / Technology",
     category: "AI Support & Chat Agents",
+    anchorId: "case-ai-support-agent",
     demoUrl: "https://your-demo-link-2.com", // 🔗 Replace with your Loom/YouTube link
     problem: "Support team overwhelmed with tier-1 tickets, slow response times hurting retention.",
     solution: "OpenAI + n8n + Intercom → AI chatbot handling FAQs, qualifying leads, and routing complex issues to agents.",
