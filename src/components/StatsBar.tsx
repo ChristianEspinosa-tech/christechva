@@ -1,16 +1,18 @@
 import { motion } from "framer-motion";
-import { Clock, TrendingUp } from "lucide-react";
+import { ArrowRight, Clock, TrendingUp } from "lucide-react";
 
 const results = [
   {
     icon: Clock,
     headline: "4 hours/day → 15 minutes",
     detail: "Cut a real estate client's lead follow-up time using a GoHighLevel + n8n workflow.",
+    caseHref: "#case-ecommerce-lead-pipeline",
   },
   {
     icon: TrendingUp,
     headline: "60% of support tickets deflected",
     detail: "AI chat agent (OpenAI + n8n + Intercom) handling tier-1 questions for a SaaS startup.",
+    caseHref: "#case-ai-support-agent",
   },
 ];
 
@@ -36,6 +38,13 @@ const StatsBar = () => {
                   {r.headline}
                 </p>
                 <p className="text-muted-foreground text-sm mt-2">{r.detail}</p>
+                <a
+                  href={r.caseHref}
+                  className="inline-flex items-center gap-1.5 mt-3 text-xs font-semibold text-primary hover:text-primary/80 transition-colors"
+                >
+                  Read the case study
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
               </div>
             </motion.div>
           ))}

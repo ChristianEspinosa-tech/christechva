@@ -16,13 +16,13 @@ const BeforeAfterSection = () => {
 
         <AnimatedSection delay={0.15}>
           <div className="glass-card p-10 md:p-14 max-w-3xl mx-auto text-center relative overflow-hidden">
-            <Quote className="w-10 h-10 text-primary/40 mx-auto mb-6" />
-            <p className="font-display text-2xl md:text-3xl font-semibold leading-snug mb-6">
+            <Quote className="w-10 h-10 text-primary mx-auto mb-6" />
+            <p className="font-display text-2xl md:text-3xl font-semibold leading-snug mb-6 text-foreground">
               Reduced a real estate client's lead follow-up from{" "}
               <span className="gradient-text">4 hours/day to 15 minutes</span>{" "}
               using a GoHighLevel + n8n workflow.
             </p>
-            <p className="text-muted-foreground text-sm">
+            <p className="text-foreground/80 text-sm">
               Same lead volume. Same close rate. Just no more manual copy-paste between Facebook Ads, the CRM, and the SMS follow-up sequence.
             </p>
           </div>

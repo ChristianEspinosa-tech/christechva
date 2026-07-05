@@ -20,6 +20,7 @@ const caseStudies = [
     client: "Coaching & Consulting Firm",
     industry: "Coaching & Consulting",
     category: "Appointment & Booking Automation",
+    anchorId: "case-appointment-booking",
     demoUrl: "https://your-demo-link-1.com", // 🔗 Replace with your Loom/YouTube link
     problem: "High no-show rates and hours spent on manual scheduling, confirmations, and follow-ups.",
     solution: "n8n + Calendly + Google Sheets → full booking flow with auto-confirmations, reminders & post-session follow-ups.",
@@ -37,6 +38,7 @@ const caseStudies = [
     client: "SaaS Startup",
     industry: "SaaS / Technology",
     category: "AI Support & Chat Agents",
+    anchorId: "case-ai-support-agent",
     demoUrl: "https://your-demo-link-2.com", // 🔗 Replace with your Loom/YouTube link
     problem: "Support team overwhelmed with tier-1 tickets, slow response times hurting retention.",
     solution: "OpenAI + n8n + Intercom → AI chatbot handling FAQs, qualifying leads, and routing complex issues to agents.",
@@ -54,6 +56,7 @@ const caseStudies = [
     client: "Online Retail Brand",
     industry: "E-commerce",
     category: "E-commerce & Order Flows",
+    anchorId: "case-ecommerce-lead-pipeline",
     demoUrl: "https://your-demo-link-3.com", // 🔗 Replace with your Loom/YouTube link
     problem: "Manual lead tracking from Facebook Ads with slow follow-ups causing lost sales.",
     solution: "n8n + GoHighLevel + Facebook API → automated lead capture, CRM tagging, and instant email nurture sequences.",
@@ -152,7 +155,7 @@ interface ProjectCardProps {
 
 const ProjectCard = ({ study, delay }: ProjectCardProps) => (
   <AnimatedSection delay={delay}>
-    <div className="glass-card-hover h-full flex flex-col overflow-hidden rounded-xl">
+    <div id={study.anchorId} className="glass-card-hover h-full flex flex-col overflow-hidden rounded-xl scroll-mt-24">
       <div className={`bg-gradient-to-br ${study.gradient} p-6`}>
         <span className="inline-block text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-primary/15 text-primary border border-primary/20 mb-3">
           {study.industry}
