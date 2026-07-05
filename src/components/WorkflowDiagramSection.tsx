@@ -54,8 +54,8 @@ const WorkflowDiagramSection = () => {
           {workflows.map((w, i) => (
             <AnimatedSection key={w.title} delay={i * 0.12}>
               <div className="glass-card-hover p-8">
-                <h3 className="font-display font-semibold text-lg mb-2">{w.title}</h3>
-                <p className="text-muted-foreground text-sm mb-8">{w.desc}</p>
+                <h3 className="font-display font-semibold text-lg mb-2 text-foreground">{w.title}</h3>
+                <p className="text-foreground/75 text-sm mb-8">{w.desc}</p>
 
                 <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-0">
                   {w.steps.map((step, j) => (
@@ -64,10 +64,10 @@ const WorkflowDiagramSection = () => {
                         <div className="w-14 h-14 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center">
                           <step.icon className="w-6 h-6 text-primary" />
                         </div>
-                        <span className="text-xs text-muted-foreground font-medium text-center">{step.label}</span>
+                        <span className="text-xs text-foreground/80 font-medium text-center">{step.label}</span>
                       </div>
                       {j < w.steps.length - 1 && (
-                        <ArrowRight className="w-5 h-5 text-primary/40 shrink-0 hidden sm:block mx-4" />
+                        <ArrowRight className="w-5 h-5 text-primary shrink-0 hidden sm:block mx-4" />
                       )}
                     </div>
                   ))}
