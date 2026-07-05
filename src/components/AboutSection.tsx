@@ -1,4 +1,4 @@
-import { MapPin, Rocket, Target, Lightbulb, Clock, Zap, UserCheck, BellRing, TrendingUp, Sparkles, Globe, Heart } from "lucide-react";
+import { MapPin, Rocket, Target, Lightbulb, Clock, Zap, UserCheck, BellRing, TrendingUp } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import avatarImg from "@/assets/avatar-placeholder.png";
 
@@ -16,24 +16,6 @@ const outcomes = [
   { icon: TrendingUp, text: "Scalable systems that grow with you" },
 ];
 
-const story = [
-  {
-    icon: Sparkles,
-    title: "Why Automation?",
-    text: "I discovered automation when I saw how much time businesses waste on repetitive tasks. The idea that a well-designed workflow could save someone hours every day — that clicked with me instantly.",
-  },
-  {
-    icon: Heart,
-    title: "What Drives Me",
-    text: "I genuinely enjoy untangling messy processes and turning them into smooth, reliable systems. There's nothing better than hearing a client say, \"I can't believe I used to do that manually.\"",
-  },
-  {
-    icon: Globe,
-    title: "My Mission",
-    text: "I'm on a mission to make powerful automation accessible — starting with businesses in the Philippines and expanding globally. Every business deserves systems that work as hard as they do.",
-  },
-];
-
 const AboutSection = () => {
   return (
     <section id="about" className="py-24 section-gradient">
@@ -49,12 +31,8 @@ const AboutSection = () => {
             <h2 className="font-display text-3xl md:text-5xl font-bold mt-4 mb-6">
               Passionate About <span className="gradient-text">Smart Automation</span>
             </h2>
-            <p className="text-muted-foreground text-lg leading-relaxed">
-              I'm Christian Espinosa, an AI-Driven Workflow Developer based in the Philippines,
-              serving clients globally. I help businesses save time and scale efficiently through
-              practical, modern automation solutions. My dedication to continuous learning and
-              delivering results means you get a partner who's committed and laser-focused
-              on your success.
+            <p className="text-foreground/85 text-lg leading-relaxed">
+              I'm Christian Espinosa, an AI-Driven Workflow Developer based in the Philippines, serving clients globally. I build practical automation systems that untangle messy processes and give teams back hours every week — starting local, thinking global.
             </p>
             <div className="flex items-center justify-center gap-2 mt-4 mb-8 text-muted-foreground">
               <MapPin className="w-4 h-4 text-primary" />
@@ -70,21 +48,6 @@ const AboutSection = () => {
             </div>
           </div>
         </AnimatedSection>
-
-        {/* Personal Story */}
-        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-16">
-          {story.map((s, i) => (
-            <AnimatedSection key={s.title} delay={i * 0.12}>
-              <div className="glass-card-hover p-8 h-full">
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-4">
-                  <s.icon className="w-5 h-5 text-primary" />
-                </div>
-                <h3 className="font-display font-semibold text-lg mb-3">{s.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{s.text}</p>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
 
         <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
           {traits.map((t, i) => (
