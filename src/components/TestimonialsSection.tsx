@@ -71,6 +71,17 @@ const TestimonialsSection = () => {
                 <div>
                   <p className="font-display font-semibold text-sm">{t.name}</p>
                   <p className="text-muted-foreground text-xs">{t.role}</p>
+                  <a
+                    href={t.verifyUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 mt-2 text-[11px] font-medium text-primary/90 hover:text-primary transition-colors"
+                    aria-label={`Verified client — ${t.verifyLabel}`}
+                  >
+                    <BadgeCheck className="w-3.5 h-3.5" />
+                    Verified client
+                    <t.verifyIcon className="w-3 h-3" />
+                  </a>
                 </div>
               </div>
             </AnimatedSection>
