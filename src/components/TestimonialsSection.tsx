@@ -1,4 +1,4 @@
-import { Star } from "lucide-react";
+import { Star, Linkedin, Globe, BadgeCheck } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 
 const testimonials = [
@@ -7,24 +7,36 @@ const testimonials = [
     role: "Founder, BrightPath Coaching",
     quote: "Christian completely transformed how we handle leads. What used to take us hours now happens automatically—and our conversion rate jumped 40% in the first month.",
     rating: 5,
+    verifyIcon: Linkedin,
+    verifyUrl: "#",
+    verifyLabel: "LinkedIn",
   },
   {
     name: "James Rivera",
     role: "CEO, QuickShip Logistics",
     quote: "The AI chatbot he built handles 60% of our support tickets without human intervention. Our team finally has time to focus on what actually matters.",
     rating: 5,
+    verifyIcon: Globe,
+    verifyUrl: "#",
+    verifyLabel: "Website",
   },
   {
     name: "Emily Nguyen",
     role: "Marketing Director, Bloom & Co",
     quote: "We went from manually tracking invoices in spreadsheets to a fully automated system. It paid for itself in the first two weeks.",
     rating: 5,
+    verifyIcon: Linkedin,
+    verifyUrl: "#",
+    verifyLabel: "LinkedIn",
   },
   {
     name: "David Kowalski",
     role: "Operations Manager, ScaleUp SaaS",
     quote: "Christian doesn't just automate—he thinks about the whole workflow. The appointment system he built cut our no-shows by 75% and saved us 15+ hours a week.",
     rating: 5,
+    verifyIcon: Globe,
+    verifyUrl: "#",
+    verifyLabel: "Website",
   },
 ];
 
