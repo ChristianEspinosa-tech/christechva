@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Mail, MapPin, Send, Linkedin, Github, Twitter } from "lucide-react";
+import { Mail, MapPin, Send } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import { trackEvent } from "@/lib/analytics";
 
@@ -104,25 +104,6 @@ const ContactSection = () => {
                 </div>
               </div>
 
-              <div className="glass-card p-6">
-                <h4 className="font-display font-semibold mb-4">Connect With Me</h4>
-                <div className="flex gap-3">
-                  {[
-                    { Icon: Linkedin, platform: "linkedin" },
-                    { Icon: Github, platform: "github" },
-                    { Icon: Twitter, platform: "twitter" },
-                  ].map(({ Icon, platform }) => (
-                    <a
-                      key={platform}
-                      href="#"
-                      onClick={() => trackEvent("social_click", { location: "contact", label: platform })}
-                      className="w-10 h-10 rounded-lg bg-secondary/50 border border-border/50 flex items-center justify-center text-muted-foreground hover:text-primary hover:border-primary/30 transition-all"
-                    >
-                      <Icon className="w-4 h-4" />
-                    </a>
-                  ))}
-                </div>
-              </div>
             </div>
           </AnimatedSection>
         </div>
