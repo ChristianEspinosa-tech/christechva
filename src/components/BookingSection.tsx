@@ -9,7 +9,7 @@ const BookingSection = () => {
           <div className="text-center mb-12">
             <span className="text-primary text-sm font-semibold uppercase tracking-widest">Book a Call</span>
             <h2 className="font-display text-3xl md:text-5xl font-bold mt-4 mb-6">
-              Schedule a <span className="gradient-text">Free Strategy Call</span>
+              Schedule a <span className="text-primary">Free Strategy Call</span>
             </h2>
             <p className="text-muted-foreground text-lg max-w-xl mx-auto">
               Pick a time that works for you. Let's discuss how automation can transform your business.
