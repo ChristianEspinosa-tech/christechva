@@ -1,12 +1,6 @@
-import { MapPin, Rocket, Target, Lightbulb, Clock, Zap, UserCheck, BellRing, TrendingUp } from "lucide-react";
+import { MapPin, Clock, Zap, UserCheck, BellRing, TrendingUp } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 import avatarImg from "@/assets/avatar-placeholder.png";
-
-const traits = [
-  { icon: Rocket, label: "Growth-Focused", desc: "Constantly learning and improving my skills" },
-  { icon: Target, label: "Detail-Oriented", desc: "Every workflow is built with precision" },
-  { icon: Lightbulb, label: "Solution-Focused", desc: "Practical automation that delivers results" },
-];
 
 const outcomes = [
   { icon: Clock, text: "Reduce manual tasks by 80%" },
@@ -49,19 +43,6 @@ const AboutSection = () => {
           </div>
         </AnimatedSection>
 
-        <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
-          {traits.map((t, i) => (
-            <AnimatedSection key={t.label} delay={i * 0.1}>
-              <div className="glass-card-hover p-8 text-center">
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mx-auto mb-4">
-                  <t.icon className="w-6 h-6 text-primary" />
-                </div>
-                <h3 className="font-display font-semibold text-lg mb-2">{t.label}</h3>
-                <p className="text-muted-foreground text-sm">{t.desc}</p>
-              </div>
-            </AnimatedSection>
-          ))}
-        </div>
       </div>
     </section>
   );
