@@ -1,30 +1,21 @@
-import { Star } from "lucide-react";
+import { UserCheck, Zap, DollarSign } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 
-const testimonials = [
+const valueProps = [
   {
-    name: "Sarah Mitchell",
-    role: "Founder, BrightPath Coaching",
-    quote: "Christian completely transformed how we handle leads. What used to take us hours now happens automatically—and our conversion rate jumped 40% in the first month.",
-    rating: 5,
+    icon: UserCheck,
+    title: "Direct Access to the Builder",
+    body: "No account managers, no handoffs, no lost-in-translation. You talk to the person actually building your automations — from the first call to the final handoff.",
   },
   {
-    name: "James Rivera",
-    role: "CEO, QuickShip Logistics",
-    quote: "The AI chatbot he built handles 60% of our support tickets without human intervention. Our team finally has time to focus on what actually matters.",
-    rating: 5,
+    icon: Zap,
+    title: "Full Attention, Fast Turnaround",
+    body: "I'm not juggling dozens of clients at once. Your project gets focused, undivided work — which means faster builds, tighter feedback loops, and quicker iterations.",
   },
   {
-    name: "Emily Nguyen",
-    role: "Marketing Director, Bloom & Co",
-    quote: "We went from manually tracking invoices in spreadsheets to a fully automated system. It paid for itself in the first two weeks.",
-    rating: 5,
-  },
-  {
-    name: "David Kowalski",
-    role: "Operations Manager, ScaleUp SaaS",
-    quote: "Christian doesn't just automate—he thinks about the whole workflow. The appointment system he built cut our no-shows by 75% and saved us 15+ hours a week.",
-    rating: 5,
+    icon: DollarSign,
+    title: "Competitive Pricing While I Scale",
+    body: "I'm growing my portfolio, which works in your favor. You get builder-level work at rates that undercut established agencies — without cutting corners on quality.",
   },
 ];
 
@@ -34,32 +25,27 @@ const TestimonialsSection = () => {
       <div className="container mx-auto px-4">
         <AnimatedSection>
           <div className="text-center mb-16">
-            <span className="text-primary text-sm font-semibold uppercase tracking-widest">Testimonials</span>
+            <span className="text-primary text-sm font-semibold uppercase tracking-widest">Why Work With Me</span>
             <h2 className="font-display text-3xl md:text-5xl font-bold mt-4 mb-6">
-              What Clients <span className="gradient-text">Are Saying</span>
+              A <span className="gradient-text">Builder's Attention</span>, Not a Vendor's Handoff
             </h2>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Don't just take my word for it—hear from the businesses I've helped automate and scale.
+              You're working with someone early in their journey — and that's a genuine advantage for you.
             </p>
           </div>
         </AnimatedSection>
 
-        <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-          {testimonials.map((t, i) => (
-            <AnimatedSection key={t.name} delay={i * 0.1}>
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {valueProps.map((v, i) => (
+            <AnimatedSection key={v.title} delay={i * 0.1}>
               <div className="glass-card-hover p-8 h-full flex flex-col">
-                <div className="flex gap-1 mb-4">
-                  {Array.from({ length: t.rating }).map((_, j) => (
-                    <Star key={j} className="w-4 h-4 fill-primary text-primary" />
-                  ))}
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-5">
+                  <v.icon className="w-6 h-6 text-primary" />
                 </div>
-                <blockquote className="text-foreground/90 text-sm leading-relaxed mb-6 flex-1">
-                  "{t.quote}"
-                </blockquote>
-                <div>
-                  <p className="font-display font-semibold text-sm">{t.name}</p>
-                  <p className="text-muted-foreground text-xs">{t.role}</p>
-                </div>
+                <h3 className="font-display font-semibold text-base mb-3">{v.title}</h3>
+                <p className="text-muted-foreground text-sm leading-relaxed flex-1">
+                  {v.body}
+                </p>
               </div>
             </AnimatedSection>
           ))}
