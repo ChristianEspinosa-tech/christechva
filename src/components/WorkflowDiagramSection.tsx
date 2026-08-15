@@ -1,4 +1,4 @@
-import { ArrowRight, Mail, Users, Bot, Database, Bell, CheckCircle } from "lucide-react";
+import { ArrowRight, Mail, Users, Database, Bell } from "lucide-react";
 import AnimatedSection from "./AnimatedSection";
 
 const workflows = [
@@ -10,26 +10,6 @@ const workflows = [
       { icon: Database, label: "Saved to CRM" },
       { icon: Mail, label: "Email Sent" },
       { icon: Bell, label: "Team Notified" },
-    ],
-  },
-  {
-    title: "Customer Inquiry → AI Chatbot → Escalation",
-    desc: "AI handles FAQs instantly, escalates complex queries to your team.",
-    steps: [
-      { icon: Users, label: "Inquiry Received" },
-      { icon: Bot, label: "AI Responds" },
-      { icon: CheckCircle, label: "Resolved or Escalated" },
-      { icon: Bell, label: "Team Alerted" },
-    ],
-  },
-  {
-    title: "Appointment → Confirmation → Reminder",
-    desc: "Clients book, get confirmed instantly, and receive automated reminders.",
-    steps: [
-      { icon: Users, label: "Client Books" },
-      { icon: CheckCircle, label: "Auto-Confirmed" },
-      { icon: Mail, label: "Reminder Sent" },
-      { icon: Bell, label: "Day-of Alert" },
     ],
   },
 ];

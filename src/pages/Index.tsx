@@ -3,7 +3,7 @@ import HeroSection from "@/components/HeroSection";
 import StatsBar from "@/components/StatsBar";
 import AboutSection from "@/components/AboutSection";
 import ProcessSection from "@/components/ProcessSection";
-import BeforeAfterSection from "@/components/BeforeAfterSection";
+
 import WorkflowDiagramSection from "@/components/WorkflowDiagramSection";
 import UseCasesSection from "@/components/UseCasesSection";
 import CaseStudiesSection from "@/components/CaseStudiesSection";
@@ -26,7 +26,7 @@ const Index = () => {
       <CaseStudiesSection />
       <AboutSection />
       <ProcessSection />
-      <BeforeAfterSection />
+      
       <WorkflowDiagramSection />
       <UseCasesSection />
       <PricingSection />
