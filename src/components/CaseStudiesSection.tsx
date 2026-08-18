@@ -104,7 +104,7 @@ const CaseStudiesSection = () => {
               <button
                 key={cat}
                 onClick={() => { setActive(cat); setShowMore(false); }}
-                className={`px-4 py-2 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 border ${
+                className={`px-4 py-2 min-h-11 rounded-full text-xs font-semibold tracking-wide transition-all duration-200 border ${
                   active === cat
                     ? "bg-primary text-primary-foreground border-primary shadow-lg shadow-primary/20"
                     : "bg-secondary/50 text-muted-foreground border-border hover:bg-secondary hover:text-foreground"
