@@ -21,7 +21,7 @@ const caseStudies = [
     industry: "Coaching & Consulting",
     category: "Appointment & Booking Automation",
     anchorId: "case-appointment-booking",
-    demoUrl: "https://your-demo-link-1.com", // 🔗 Replace with your Loom/YouTube link
+    demoUrl: "https://github.com/ChristianEspinosa-tech/AI-Powered-Appointment-Booking-System",
     problem: "High no-show rates and hours spent on manual scheduling, confirmations, and follow-ups.",
     solution: "n8n + Calendly + Google Sheets → full booking flow with auto-confirmations, reminders & post-session follow-ups.",
     results: [
@@ -39,7 +39,7 @@ const caseStudies = [
     industry: "SaaS / Technology",
     category: "AI Support & Chat Agents",
     anchorId: "case-ai-support-agent",
-    demoUrl: "https://your-demo-link-2.com", // 🔗 Replace with your Loom/YouTube link
+    demoUrl: "https://github.com/ChristianEspinosa-tech/AI-Customer-Support-Chat-Agent",
     problem: "Support team overwhelmed with tier-1 tickets, slow response times hurting retention.",
     solution: "OpenAI + n8n + Intercom → AI chatbot handling FAQs, qualifying leads, and routing complex issues to agents.",
     results: [
@@ -57,7 +57,7 @@ const caseStudies = [
     industry: "E-commerce",
     category: "E-commerce & Order Flows",
     anchorId: "case-ecommerce-lead-pipeline",
-    demoUrl: "https://your-demo-link-3.com", // 🔗 Replace with your Loom/YouTube link
+    demoUrl: "https://github.com/ChristianEspinosa-tech/AI-Powered-E-Commerce-Lead-Pipeline",
     problem: "Manual lead tracking from Facebook Ads with slow follow-ups causing lost sales.",
     solution: "n8n + GoHighLevel + Facebook API → automated lead capture, CRM tagging, and instant email nurture sequences.",
     results: [
@@ -208,7 +208,7 @@ const ProjectCard = ({ study, delay }: ProjectCardProps) => (
           className="mt-3 flex items-center justify-center gap-2 w-full py-2.5 rounded-lg text-sm font-semibold text-primary border border-primary/30 bg-primary/5 hover:bg-primary/10 transition-colors duration-200"
         >
           <ExternalLink className="w-4 h-4" />
-          View Workflow Demo
+          View Workflow on GitHub
         </a>
       </div>
     </div>
