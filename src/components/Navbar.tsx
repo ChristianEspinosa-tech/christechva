@@ -7,9 +7,8 @@ import { trackEvent } from "@/lib/analytics";
 
 const navLinks = [
   { label: "About", href: "#about" },
-  { label: "Services", href: "#services" },
+  { label: "Services", href: "#solutions" },
   { label: "Process", href: "#process" },
-  { label: "Solutions", href: "#solutions" },
   { label: "Portfolio", href: "#portfolio" },
   { label: "Testimonials", href: "#testimonials" },
   { label: "Contact", href: "#contact" },
