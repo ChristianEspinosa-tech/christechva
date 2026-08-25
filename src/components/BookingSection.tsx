@@ -20,11 +20,11 @@ const BookingSection = () => {
         <AnimatedSection delay={0.15}>
           <div className="glass-card p-4 md:p-8 max-w-4xl mx-auto overflow-hidden rounded-xl">
             <iframe
-              src="https://calendly.com/christian-espinosa-work?hide_gdpr_banner=1"
+              src="https://cal.com/christian-espinosa/strategy-call"
               width="100%"
               height="700"
               frameBorder="0"
-              title="Schedule a call with Christian Espinosa"
+              title="Schedule a strategy call with Christian Espinosa"
               className="rounded-lg"
             />
           </div>
