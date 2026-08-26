@@ -108,7 +108,9 @@ export function trackEvent(event: AnalyticsEvent, params: EventParams) {
       event_category: "engagement",
       event_label: params.label ?? params.location,
       value: params.value,
+      destination: params.destination,
       ...utm,
+
     });
   }
 
