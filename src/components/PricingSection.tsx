@@ -106,6 +106,7 @@ const PricingSection = () => {
                     trackEvent(pkg.cta === "Let's Talk" ? "lets_talk_click" : "schedule_call_click", {
                       location: `pricing_${pkg.name.toLowerCase()}`,
                       label: pkg.cta,
+                      destination: "#booking",
                     })
                   }
                   className={`inline-flex items-center justify-center gap-2 text-sm font-semibold py-3 rounded-lg transition-all duration-300 ${
