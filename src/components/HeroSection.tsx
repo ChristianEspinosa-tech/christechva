@@ -63,7 +63,7 @@ const HeroSection = () => {
         >
           <a
             href="#booking"
-            onClick={() => trackEvent("schedule_call_click", { location: "hero" })}
+            onClick={() => trackEvent("schedule_call_click", { location: "hero", label: "Schedule a Free Strategy Call", destination: "#booking" })}
             className="btn-primary inline-flex items-center justify-center gap-2 text-base px-8 py-4"
           >
             <Calendar className="w-5 h-5" /> Schedule a Free Strategy Call
