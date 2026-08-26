@@ -49,7 +49,7 @@ const UseCasesSection = () => {
                   href={c.repoUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => trackEvent("external_link_click", { location: "use_case", label: c.title })}
+                  onClick={() => trackEvent("external_link_click", { location: "use_case", label: c.title, destination: c.repoUrl })}
                   className="mt-auto pt-5 inline-flex items-center gap-2 text-sm font-semibold text-primary hover:text-primary/80 transition-colors"
                 >
                   <Github className="w-4 h-4" />
