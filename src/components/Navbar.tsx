@@ -71,7 +71,10 @@ const Navbar = () => {
                 <a
                   key={l.href}
                   href={l.href}
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    setOpen(false);
+                    trackEvent("nav_click", { location: "navbar_mobile", label: l.label, destination: l.href });
+                  }}
                   className="text-muted-foreground hover:text-primary transition-colors py-2"
                 >
                   {l.label}
@@ -81,7 +84,7 @@ const Navbar = () => {
                 href="#contact"
                 onClick={() => {
                   setOpen(false);
-                  trackEvent("lets_talk_click", { location: "navbar_mobile" });
+                  trackEvent("lets_talk_click", { location: "navbar_mobile", label: "Let's Talk", destination: "#contact" });
                 }}
                 className="btn-primary text-center text-sm py-2 rounded-lg"
               >
