@@ -228,6 +228,7 @@ const WorkflowCard = ({ study, delay }: WorkflowCardProps) => {
               trackEvent("external_link_click", {
                 location: "workflow_gallery",
                 label: study.title,
+                destination: study.url,
               })
             }
             className="mt-3 flex items-center justify-center gap-2 w-full py-2.5 rounded-lg text-sm font-semibold text-primary border border-primary/30 bg-primary/5 hover:bg-primary/10 transition-colors duration-200"

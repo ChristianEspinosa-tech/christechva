@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Clock, TrendingUp } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 const results = [
   {
@@ -40,6 +41,13 @@ const StatsBar = () => {
                 <p className="text-muted-foreground text-sm mt-2">{r.detail}</p>
                 <a
                   href={r.caseHref}
+                  onClick={() =>
+                    trackEvent("nav_click", {
+                      location: "stats_bar",
+                      label: `Read the case study — ${r.headline}`,
+                      destination: r.caseHref,
+                    })
+                  }
                   className="inline-flex items-center gap-1.5 mt-3 text-xs font-semibold text-primary hover:text-primary/80 transition-colors"
                 >
                   Read the case study

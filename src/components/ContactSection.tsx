@@ -82,6 +82,7 @@ const ContactSection = () => {
                       trackEvent("external_link_click", {
                         location: "contact",
                         label: "Email",
+                        destination: "mailto:christian.t.espinosa@gmail.com",
                       })
                     }
                     className="hover:text-primary transition-colors"
