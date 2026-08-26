@@ -3,6 +3,7 @@ export type AnalyticsEvent =
   | "lets_talk_click"
   | "social_click"
   | "external_link_click"
+  | "nav_click"
   | "booking_widget_view"
   | "booking_widget_engage";
 
@@ -10,7 +11,10 @@ export interface EventParams {
   location: string;
   label?: string;
   value?: number;
+  /** Where the click sends the visitor: an anchor (#booking), URL, or action name. */
+  destination?: string;
 }
+
 
 export interface UtmParams {
   utm_source?: string;
