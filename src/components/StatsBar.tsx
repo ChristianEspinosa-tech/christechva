@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Clock, TrendingUp } from "lucide-react";
+import { trackEvent } from "@/lib/analytics";
 
 const results = [
   {
