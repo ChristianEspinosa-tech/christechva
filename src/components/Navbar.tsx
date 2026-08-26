@@ -33,6 +33,7 @@ const Navbar = () => {
             <a
               key={l.href}
               href={l.href}
+              onClick={() => trackEvent("nav_click", { location: "navbar_desktop", label: l.label, destination: l.href })}
               className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
             >
               {l.label}
@@ -40,7 +41,7 @@ const Navbar = () => {
           ))}
           <a
             href="#contact"
-            onClick={() => trackEvent("lets_talk_click", { location: "navbar_desktop" })}
+            onClick={() => trackEvent("lets_talk_click", { location: "navbar_desktop", label: "Let's Talk", destination: "#contact" })}
             className="btn-primary text-sm py-2 px-6 rounded-lg inline-block"
           >
             Let's Talk
