@@ -1,3 +1,5 @@
+import { hasAnalyticsConsent } from "./consent";
+
 export type AnalyticsEvent =
   | "schedule_call_click"
   | "lets_talk_click"
@@ -96,12 +98,22 @@ export function subscribeToAnalyticsEvents(cb: EventSubscriber) {
 }
 
 export function trackEvent(event: AnalyticsEvent, params: EventParams) {
+  // No analytics is recorded until the visitor accepts cookies.
+  if (!hasAnalyticsConsent()) {
+    if (import.meta.env.DEV) {
+      // eslint-disable-next-line no-console
+      console.log("[Analytics] skipped (no consent)", event);
+    }
+    return;
+  }
+
   const utm = getUtmParams();
   const payload = {
     event_name: event,
     ...params,
     ...utm,
   };
+
 
   if (typeof window !== "undefined" && "gtag" in window && typeof (window as any).gtag === "function") {
     (window as any).gtag("event", event, {
