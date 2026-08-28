@@ -40,6 +40,13 @@ const Navbar = () => {
               {l.label}
             </a>
           ))}
+          <Link
+            to="/blog"
+            onClick={() => trackEvent("nav_click", { location: "navbar_desktop", label: "Blog", destination: "/blog" })}
+            className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
+          >
+            Blog
+          </Link>
           <a
             href="#contact"
             onClick={() => trackEvent("lets_talk_click", { location: "navbar_desktop", label: "Let's Talk", destination: "#contact" })}
@@ -81,6 +88,16 @@ const Navbar = () => {
                   {l.label}
                 </a>
               ))}
+              <Link
+                to="/blog"
+                onClick={() => {
+                  setOpen(false);
+                  trackEvent("nav_click", { location: "navbar_mobile", label: "Blog", destination: "/blog" });
+                }}
+                className="text-muted-foreground hover:text-primary transition-colors py-2"
+              >
+                Blog
+              </Link>
               <a
                 href="#contact"
                 onClick={() => {
