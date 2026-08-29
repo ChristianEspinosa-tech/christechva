@@ -49,11 +49,25 @@ const Blog = () => {
           </p>
         </header>
 
+        <div className="relative mb-8">
+          <Search className="pointer-events-none absolute left-3.5 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+          <input
+            type="search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search posts by title or topic..."
+            aria-label="Search blog posts"
+            className="w-full rounded-xl border border-border/40 bg-card/40 py-3 pl-10 pr-4 text-sm text-foreground placeholder:text-muted-foreground backdrop-blur-sm transition-colors focus:border-primary/40 focus:outline-none"
+          />
+        </div>
+
         {blogPosts.length === 0 ? (
           <p className="text-muted-foreground">No posts published yet — check back soon.</p>
+        ) : filteredPosts.length === 0 ? (
+          <p className="text-muted-foreground">No posts match "{query}".</p>
         ) : (
           <ul className="space-y-4">
-            {blogPosts.map((post) => (
+            {filteredPosts.map((post) => (
               <li key={post.slug}>
                 <Link
                   to={`/blog/${post.slug}`}
