@@ -1,10 +1,23 @@
+import { useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ArrowRight, CalendarDays } from "lucide-react";
+import { ArrowLeft, ArrowRight, CalendarDays, Search } from "lucide-react";
 import { blogPosts, formatDate } from "@/lib/blog";
 import { trackEvent } from "@/lib/analytics";
 
 const Blog = () => {
+  const [query, setQuery] = useState("");
+
+  const filteredPosts = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    if (!q) return blogPosts;
+    return blogPosts.filter(
+      (post) =>
+        post.title.toLowerCase().includes(q) ||
+        post.description.toLowerCase().includes(q),
+    );
+  }, [query]);
+
   return (
     <div className="min-h-screen bg-background">
       <Helmet>
