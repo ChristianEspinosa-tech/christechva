@@ -32,6 +32,7 @@ const Blog = () => {
           content="Practical notes on AI automation workflows with n8n, Make, GoHighLevel and Zapier."
         />
         <meta property="og:type" content="website" />
+        <link rel="alternate" type="application/rss+xml" title="AI Automation Insights RSS" href="/rss.xml" />
       </Helmet>
 
       <div className="container mx-auto max-w-3xl px-4 py-24">
