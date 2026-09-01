@@ -15,6 +15,8 @@ export interface BlogPost {
   date: string | null;
   description: string;
   html: string;
+  /** True when the file is a full standalone HTML document. */
+  isFullDocument: boolean;
 }
 
 const match = (html: string, re: RegExp) => {
