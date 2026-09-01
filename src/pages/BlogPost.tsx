@@ -46,10 +46,19 @@ const BlogPost = () => {
           </span>
         )}
 
-        <div
-          className="prose prose-invert mt-4 max-w-none prose-headings:font-display prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground prose-strong:text-foreground prose-a:text-primary"
-          dangerouslySetInnerHTML={{ __html: post.html }}
-        />
+        {post.isFullDocument ? (
+          <iframe
+            title={post.title}
+            srcDoc={post.html}
+            className="mt-4 h-[85vh] w-full rounded-lg border border-border bg-white"
+            sandbox="allow-scripts allow-same-origin"
+          />
+        ) : (
+          <div
+            className="prose prose-invert mt-4 max-w-none prose-headings:font-display prose-headings:text-foreground prose-p:text-muted-foreground prose-li:text-muted-foreground prose-strong:text-foreground prose-a:text-primary"
+            dangerouslySetInnerHTML={{ __html: post.html }}
+          />
+        )}
       </article>
     </div>
   );
