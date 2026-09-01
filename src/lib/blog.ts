@@ -38,12 +38,13 @@ function parsePost(path: string, raw: string): BlogPost {
     match(raw, /<meta[^>]*name=["']description["'][^>]*content=["']([^"']+)["'][^>]*>/i) ||
     stripTags(match(raw, /<p[^>]*>([\s\S]*?)<\/p>/i) || "").slice(0, 160);
 
+  const isFullDocument = /<html[\s>]/i.test(raw);
   // Use only the <body> content when a full document was uploaded.
   const body = match(raw, /<body[^>]*>([\s\S]*?)<\/body>/i) ?? raw;
   // Keep <style> and <script> so standalone styled posts render accurately.
-  const html = body.trim();
+  const html = (isFullDocument ? raw : body).trim();
 
-  return { slug, title, date, description, html };
+  return { slug, title, date, description, html, isFullDocument };
 }
 
 export const blogPosts: BlogPost[] = Object.entries(files)
