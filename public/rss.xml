@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>AI Automation Insights | Christian Espinosa</title>
+    <link>https://christianespinosa-tech.github.io/christechva/blog</link>
+    <atom:link href="https://christianespinosa-tech.github.io/christechva/rss.xml" rel="self" type="application/rss+xml" />
+    <description>Practical notes on AI automation workflows with n8n, Make, GoHighLevel and Zapier.</description>
+    <language>en-us</language>
+    <item>
+      <title>Automating Lead Follow-Up Without a Sales Team</title>
+      <link>https://christianespinosa-tech.github.io/christechva/blog/automating-lead-follow-up</link>
+      <guid isPermaLink="true">https://christianespinosa-tech.github.io/christechva/blog/automating-lead-follow-up</guid>
+      <pubDate>Thu, 20 Aug 2026 00:00:00 GMT</pubDate>
+      <description>How a GoHighLevel + n8n workflow replaces hours of manual lead chasing every day.</description>
+    </item>
+    <item>
+      <title>n8n vs Make vs Zapier: Picking the Right Tool</title>
+      <link>https://christianespinosa-tech.github.io/christechva/blog/n8n-vs-make-vs-zapier</link>
+      <guid isPermaLink="true">https://christianespinosa-tech.github.io/christechva/blog/n8n-vs-make-vs-zapier</guid>
+      <pubDate>Thu, 02 Jul 2026 00:00:00 GMT</pubDate>
+      <description>A practical comparison of the three automation platforms and when each one actually wins.</description>
+    </item>
+  </channel>
+</rss>
