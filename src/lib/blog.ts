@@ -38,10 +38,8 @@ function parsePost(path: string, raw: string): BlogPost {
 
   // Use only the <body> content when a full document was uploaded.
   const body = match(raw, /<body[^>]*>([\s\S]*?)<\/body>/i) ?? raw;
-  const html = body
-    .replace(/<script[\s\S]*?<\/script>/gi, "")
-    .replace(/<style[\s\S]*?<\/style>/gi, "")
-    .trim();
+  // Keep <style> and <script> so standalone styled posts render accurately.
+  const html = body.trim();
 
   return { slug, title, date, description, html };
 }
