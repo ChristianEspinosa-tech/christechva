@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Campaign Performance Statement</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEAE2;
+    --panel:#FBFAF7;
+    --panel-line:#E3DFD4;
+    --ink:#1B2420;
+    --ink-soft:#5B655D;
+    --ink-faint:#9BA39A;
+    --rule:#D6D1C4;
+    --emerald:#1E6B4F;
+    --emerald-soft:#E4EEE8;
+    --gold:#A9812E;
+    --rust:#A8432E;
+    --rust-soft:#F3E7E2;
+    --up-soft:#E4EEE8;
+    --radius:2px;
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{
+    margin:0;
+    padding:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Mono', ui-monospace, monospace;
+  }
+
+  body{
+    padding:56px 20px 96px;
+  }
+
+  .sheet{
+    max-width:880px;
+    margin:0 auto;
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    box-shadow:0 1px 0 rgba(27,36,32,0.03), 0 24px 60px -32px rgba(27,36,32,0.22);
+  }
+
+  /* ---------- header ---------- */
+  .masthead{
+    padding:44px 48px 32px;
+    border-bottom:1px solid var(--rule);
+  }
+
+  .masthead-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:24px;
+    margin-bottom:28px;
+  }
+
+  .masthead-mark{
+    font-size:11px;
+    letter-spacing:0.04em;
+    color:var(--ink-faint);
+  }
+
+  .masthead-period{
+    font-size:11px;
+    color:var(--ink-soft);
+    text-align:right;
+  }
+
+  .masthead-period [contenteditable]{
+    border-bottom:1px dotted var(--ink-faint);
+    padding-bottom:1px;
+  }
+
+  h1{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:500;
+    font-size:clamp(30px, 4.4vw, 42px);
+    line-height:1.08;
+    letter-spacing:-0.01em;
+    margin:0 0 12px;
+  }
+
+  .masthead-sub{
+    font-family:'Fraunces', Georgia, serif;
+    font-style:italic;
+    font-weight:400;
+    font-size:16px;
+    color:var(--ink-soft);
+    max-width:560px;
+    line-height:1.5;
+  }
+
+  [contenteditable]{
+    outline:none;
+    border-radius:1px;
+  }
+  [contenteditable]:hover{
+    background:var(--emerald-soft);
+  }
+  [contenteditable]:focus{
+    background:var(--emerald-soft);
+    box-shadow:0 0 0 1px var(--emerald);
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    display:grid;
+    grid-template-columns:1fr auto;
+    align-items:end;
+    gap:24px;
+    padding:36px 48px;
+    border-bottom:1px solid var(--rule);
+  }
+
+  .hero-label{
+    font-size:11px;
+    color:var(--ink-soft);
+    margin-bottom:10px;
+  }
+
+  .hero-number{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:400;
+    font-size:clamp(56px, 9vw, 88px);
+    line-height:0.95;
+    letter-spacing:-0.015em;
+    color:var(--emerald);
+    font-variant-numeric:tabular-nums;
+  }
+
+  .hero-delta{
+    font-size:13px;
+    color:var(--emerald);
+    text-align:right;
+    padding-bottom:10px;
+  }
+  .hero-delta.negative{ color:var(--rust); }
+
+  .hero-narrative{
+    grid-column:1 / -1;
+    font-size:13.5px;
+    line-height:1.7;
+    color:var(--ink-soft);
+    padding-top:20px;
+    max-width:640px;
+  }
+
+  .hero-narrative b{
+    color:var(--ink);
+    font-weight:600;
+  }
+
+  /* ---------- input strip ---------- */
+  .inputs{
+    padding:26px 48px 30px;
+    border-bottom:1px solid var(--rule);
+  }
+
+  .inputs-title{
+    font-size:11px;
+    color:var(--ink-faint);
+    margin-bottom:16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .inputs-title::after{
+    content:"";
+    flex:1;
+    height:1px;
+    background:var(--rule);
+  }
+
+  .inputs-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px 28px;
+  }
+
+  .field{
+    display:flex;
+    flex-direction:column;
+    gap:6px;
+  }
+
+  .field-label{
+    font-size:10.5px;
+    color:var(--ink-faint);
+  }
+
+  .field-value{
+    font-size:16px;
+    font-weight:600;
+    padding:2px 3px;
+    width:fit-content;
+  }
+
+  /* ---------- ledger ---------- */
+  .ledger{
+    padding:8px 0;
+  }
+
+  .row{
+    display:grid;
+    grid-template-columns:220px 1fr 190px;
+    gap:24px;
+    align-items:center;
+    padding:22px 48px;
+    border-bottom:1px solid var(--panel-line);
+  }
+  .row:last-child{ border-bottom:none; }
+
+  .row-name{
+    font-family:'Fraunces', Georgia, serif;
+    font-size:17px;
+    font-weight:500;
+    color:var(--ink);
+    display:block;
+    margin-bottom:5px;
+  }
+
+  .row-formula{
+    font-size:10.5px;
+    color:var(--ink-faint);
+  }
+
+  .row-bar{
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+
+  .bar-track{
+    height:6px;
+    background:var(--paper);
+    border:1px solid var(--panel-line);
+    position:relative;
+    overflow:hidden;
+  }
+
+  .bar-fill{
+    height:100%;
+    background:var(--emerald);
+    width:0%;
+    transition:width 0.5s cubic-bezier(.4,0,.2,1);
+  }
+
+  .bar-meta{
+    display:flex;
+    justify-content:space-between;
+    font-size:10.5px;
+    color:var(--ink-faint);
+  }
+
+  .bar-meta [contenteditable]{
+    color:var(--ink-soft);
+    padding:0 2px;
+  }
+
+  .row-value{
+    text-align:right;
+  }
+
+  .value-num{
+    font-size:24px;
+    font-weight:600;
+    display:block;
+    font-variant-numeric:tabular-nums;
+  }
+
+  .value-delta{
+    font-size:11.5px;
+    color:var(--ink-faint);
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+    gap:5px;
+    margin-top:5px;
+  }
+
+  .value-delta .arrow{
+    font-size:11px;
+  }
+  .value-delta.up{ color:var(--emerald); }
+  .value-delta.down{ color:var(--rust); }
+
+  .value-delta [contenteditable]{
+    color:inherit;
+    padding:0 2px;
+  }
+
+  /* ---------- footer ---------- */
+  .footer{
+    padding:30px 48px 40px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+  }
+
+  .footer-block{
+    font-size:12.5px;
+    line-height:1.7;
+    color:var(--ink-soft);
+  }
+
+  .footer-block-title{
+    font-size:10.5px;
+    color:var(--ink-faint);
+    margin-bottom:8px;
+  }
+
+  .footer-block [contenteditable]{
+    display:block;
+    min-height:20px;
+    padding:2px 3px;
+  }
+
+  .hint{
+    max-width:880px;
+    margin:18px auto 0;
+    font-size:11px;
+    color:var(--ink-faint);
+    text-align:center;
+  }
+  .hint span{
+    border-bottom:1px dotted var(--ink-faint);
+  }
+
+  @media (max-width:720px){
+    .masthead, .hero, .inputs, .footer{ padding-left:24px; padding-right:24px; }
+    .row{ grid-template-columns:1fr; padding:20px 24px; gap:12px; }
+    .row-value{ text-align:left; }
+    .value-delta{ justify-content:flex-start; }
+    .hero{ grid-template-columns:1fr; }
+    .hero-delta{ text-align:left; }
+    .inputs-grid{ grid-template-columns:repeat(2, 1fr); }
+    .footer{ grid-template-columns:1fr; }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .bar-fill{ transition:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- HEADER -->
+  <div class="masthead">
+    <div class="masthead-top">
+      <div class="masthead-mark">Performance statement · issued monthly</div>
+      <div class="masthead-period">
+        Period <span contenteditable="true">01–30 Jun 2026</span><br>
+        vs. <span contenteditable="true">01–31 May 2026</span>
+      </div>
+    </div>
+    <h1 contenteditable="true">Campaign Performance Statement</h1>
+    <div class="masthead-sub" contenteditable="true">A plain read on what the last send earned, who it reached, and where the list is heading. Click any figure below to edit it.</div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div>
+      <div class="hero-label">Revenue per recipient</div>
+      <div class="hero-number" id="hero-rpr">$0.00</div>
+    </div>
+    <div class="hero-delta up" id="hero-delta">▲ 0% vs. last period</div>
+    <div class="hero-narrative">
+      Every recipient this period was worth <b id="narr-rpr">$0.00</b>, on a
+      <b id="narr-deliverability">0%</b> deliverability rate and
+      <b id="narr-listgrowth">0%</b> net list growth. Click-through sits at
+      <b id="narr-ctr">0%</b>, converting at <b id="narr-cvr">0%</b>.
+    </div>
+  </div>
+
+  <!-- RAW INPUTS -->
+  <div class="inputs">
+    <div class="inputs-title">Source figures</div>
+    <div class="inputs-grid">
+      <div class="field">
+        <span class="field-label">Total revenue attributed</span>
+        <span class="field-value" contenteditable="true" data-key="revenue">$18,400</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Emails sent</span>
+        <span class="field-value" contenteditable="true" data-key="sent">52,000</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Emails delivered</span>
+        <span class="field-value" contenteditable="true" data-key="delivered">49,500</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Unique clicks</span>
+        <span class="field-value" contenteditable="true" data-key="clicks">2,380</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Conversions</span>
+        <span class="field-value" contenteditable="true" data-key="conversions">410</span>
+      </div>
+      <div class="field">
+        <span class="field-label">List size at period start</span>
+        <span class="field-value" contenteditable="true" data-key="list_start">24,000</span>
+      </div>
+      <div class="field">
+        <span class="field-label">New subscribers</span>
+        <span class="field-value" contenteditable="true" data-key="new_subs">860</span>
+      </div>
+      <div class="field">
+        <span class="field-label">Unsubscribes</span>
+        <span class="field-value" contenteditable="true" data-key="unsubs">210</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- LEDGER -->
+  <div class="ledger">
+
+    <div class="row" data-metric="rpr">
+      <div>
+        <span class="row-name">Revenue per recipient</span>
+        <span class="row-formula">revenue ÷ delivered</span>
+      </div>
+      <div class="row-bar">
+        <div class="bar-track"><div class="bar-fill" data-fill="rpr"></div></div>
+        <div class="bar-meta">
+          <span>target</span>
+          <span contenteditable="true" data-role="target" data-metric="rpr">$0.40</span>
+        </div>
+      </div>
+      <div class="row-value">
+        <span class="value-num" data-role="value" data-metric="rpr">$0.00</span>
+        <span class="value-delta" data-role="delta-wrap" data-metric="rpr">
+          <span class="arrow" data-role="arrow"></span>
+          <span data-role="delta-text"></span> vs
+          <span contenteditable="true" data-role="previous" data-metric="rpr">$0.33</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="row" data-metric="ctr">
+      <div>
+        <span class="row-name">Click-through rate</span>
+        <span class="row-formula">clicks ÷ delivered</span>
+      </div>
+      <div class="row-bar">
+        <div class="bar-track"><div class="bar-fill" data-fill="ctr"></div></div>
+        <div class="bar-meta">
+          <span>target</span>
+          <span contenteditable="true" data-role="target" data-metric="ctr">5.5%</span>
+        </div>
+      </div>
+      <div class="row-value">
+        <span class="value-num" data-role="value" data-metric="ctr">0.0%</span>
+        <span class="value-delta" data-role="delta-wrap" data-metric="ctr">
+          <span class="arrow" data-role="arrow"></span>
+          <span data-role="delta-text"></span> vs
+          <span contenteditable="true" data-role="previous" data-metric="ctr">4.2%</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="row" data-metric="cvr">
+      <div>
+        <span class="row-name">Conversion rate</span>
+        <span class="row-formula">conversions ÷ clicks</span>
+      </div>
+      <div class="row-bar">
+        <div class="bar-track"><div class="bar-fill" data-fill="cvr"></div></div>
+        <div class="bar-meta">
+          <span>target</span>
+          <span contenteditable="true" data-role="target" data-metric="cvr">20%</span>
+        </div>
+      </div>
+      <div class="row-value">
+        <span class="value-num" data-role="value" data-metric="cvr">0.0%</span>
+        <span class="value-delta" data-role="delta-wrap" data-metric="cvr">
+          <span class="arrow" data-role="arrow"></span>
+          <span data-role="delta-text"></span> vs
+          <span contenteditable="true" data-role="previous" data-metric="cvr">15.8%</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="row" data-metric="deliverability">
+      <div>
+        <span class="row-name">Deliverability</span>
+        <span class="row-formula">delivered ÷ sent</span>
+      </div>
+      <div class="row-bar">
+        <div class="bar-track"><div class="bar-fill" data-fill="deliverability"></div></div>
+        <div class="bar-meta">
+          <span>target</span>
+          <span contenteditable="true" data-role="target" data-metric="deliverability">97%</span>
+        </div>
+      </div>
+      <div class="row-value">
+        <span class="value-num" data-role="value" data-metric="deliverability">0.0%</span>
+        <span class="value-delta" data-role="delta-wrap" data-metric="deliverability">
+          <span class="arrow" data-role="arrow"></span>
+          <span data-role="delta-text"></span> vs
+          <span contenteditable="true" data-role="previous" data-metric="deliverability">94.1%</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="row" data-metric="listgrowth">
+      <div>
+        <span class="row-name">Net list growth</span>
+        <span class="row-formula">(new − unsubscribed) ÷ list start</span>
+      </div>
+      <div class="row-bar">
+        <div class="bar-track"><div class="bar-fill" data-fill="listgrowth"></div></div>
+        <div class="bar-meta">
+          <span>target</span>
+          <span contenteditable="true" data-role="target" data-metric="listgrowth">3.0%</span>
+        </div>
+      </div>
+      <div class="row-value">
+        <span class="value-num" data-role="value" data-metric="listgrowth">0.0%</span>
+        <span class="value-delta" data-role="delta-wrap" data-metric="listgrowth">
+          <span class="arrow" data-role="arrow"></span>
+          <span data-role="delta-text"></span> vs
+          <span contenteditable="true" data-role="previous" data-metric="listgrowth">2.1%</span>
+        </span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-block">
+      <div class="footer-block-title">Reading this statement</div>
+      <span contenteditable="true">Bars show progress toward the target you set. Green movement means the metric improved against last period; rust means it slipped.</span>
+    </div>
+    <div class="footer-block">
+      <div class="footer-block-title">Notes</div>
+      <span contenteditable="true">Add a line here on what changed this period — subject line test, send-time shift, list cleanup — so the numbers have context.</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="hint">Every figure on this page is <span>editable</span> — click a number to change it, and the statement recalculates.</div>
+
+<script>
+(function(){
+  const $ = (sel, ctx=document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx=document) => Array.from(ctx.querySelectorAll(sel));
+
+  function num(str){
+    if(str == null) return 0;
+    const cleaned = String(str).replace(/[^0-9.\-]/g, '');
+    const v = parseFloat(cleaned);
+    return isNaN(v) ? 0 : v;
+  }
+
+  function pct(str){
+    return num(str) / 100;
+  }
+
+  function fmtCurrency(v){
+    return '$' + v.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
+  }
+
+  function fmtPercent(v, decimals=1){
+    return (v*100).toFixed(decimals) + '%';
+  }
+
+  function getInput(key){
+    const el = $('.field-value[data-key="' + key + '"]');
+    return num(el ? el.textContent : 0);
+  }
+
+  function setBar(metric, ratio){
+    const fill = $('.bar-fill[data-fill="' + metric + '"]');
+    if(fill) fill.style.width = Math.max(0, Math.min(100, ratio*100)) + '%';
+  }
+
+  function setDelta(metric, current, isPercentMetric){
+    const wrap = $('.value-delta[data-role="delta-wrap"][data-metric="' + metric + '"]');
+    if(!wrap) return;
+    const prevEl = wrap.querySelector('[data-role="previous"]');
+    const arrowEl = wrap.querySelector('[data-role="arrow"]');
+    const textEl = wrap.querySelector('[data-role="delta-text"]');
+    const prev = isPercentMetric ? pct(prevEl.textContent) : num(prevEl.textContent);
+    const diff = current - prev;
+    const up = diff >= 0;
+    wrap.classList.remove('up','down');
+    wrap.classList.add(up ? 'up' : 'down');
+    arrowEl.textContent = up ? '▲' : '▼';
+    const magnitude = isPercentMetric ? Math.abs(diff*100).toFixed(1) + 'pt' : Math.abs(diff*100/Math.max(prev,0.0001)).toFixed(0) + '%';
+    textEl.textContent = magnitude;
+    return {up, diff};
+  }
+
+  function recalc(){
+    const revenue = getInput('revenue');
+    const sent = getInput('sent');
+    const delivered = getInput('delivered');
+    const clicks = getInput('clicks');
+    const conversions = getInput('conversions');
+    const listStart = getInput('list_start');
+    const newSubs = getInput('new_subs');
+    const unsubs = getInput('unsubs');
+
+    const rpr = delivered ? revenue / delivered : 0;
+    const ctr = delivered ? clicks / delivered : 0;
+    const cvr = clicks ? conversions / clicks : 0;
+    const deliverability = sent ? delivered / sent : 0;
+    const listgrowth = listStart ? (newSubs - unsubs) / listStart : 0;
+
+    // values
+    $('.value-num[data-metric="rpr"]').textContent = fmtCurrency(rpr);
+    $('.value-num[data-metric="ctr"]').textContent = fmtPercent(ctr);
+    $('.value-num[data-metric="cvr"]').textContent = fmtPercent(cvr);
+    $('.value-num[data-metric="deliverability"]').textContent = fmtPercent(deliverability);
+    $('.value-num[data-metric="listgrowth"]').textContent = fmtPercent(listgrowth);
+
+    // bars vs target
+    setBar('rpr', rpr / Math.max(pct(0) , num($('[data-role="target"][data-metric="rpr"]').textContent) || 1));
+    setBar('ctr', ctr / (pct($('[data-role="target"][data-metric="ctr"]').textContent) || 1));
+    setBar('cvr', cvr / (pct($('[data-role="target"][data-metric="cvr"]').textContent) || 1));
+    setBar('deliverability', deliverability / (pct($('[data-role="target"][data-metric="deliverability"]').textContent) || 1));
+    setBar('listgrowth', listgrowth / (pct($('[data-role="target"][data-metric="listgrowth"]').textContent) || 1));
+
+    // deltas
+    setDelta('rpr', rpr, false);
+    const ctrD = setDelta('ctr', ctr, true);
+    setDelta('cvr', cvr, true);
+    setDelta('deliverability', deliverability, true);
+    setDelta('listgrowth', listgrowth, true);
+
+    // hero
+    $('#hero-rpr').textContent = fmtCurrency(rpr);
+    const heroDelta = setDelta('rpr', rpr, false);
+    const heroEl = $('#hero-delta');
+    heroEl.classList.remove('negative');
+    if(heroDelta){
+      const pctChange = (rpr - (getPrevRaw('rpr'))) / Math.max(getPrevRaw('rpr'), 0.0001) * 100;
+      heroEl.textContent = (heroDelta.up ? '▲ ' : '▼ ') + Math.abs(pctChange).toFixed(0) + '% vs. last period';
+      if(!heroDelta.up) heroEl.classList.add('negative');
+    }
+
+    // narrative
+    $('#narr-rpr').textContent = fmtCurrency(rpr);
+    $('#narr-deliverability').textContent = fmtPercent(deliverability, 0);
+    $('#narr-listgrowth').textContent = fmtPercent(listgrowth, 1);
+    $('#narr-ctr').textContent = fmtPercent(ctr, 1);
+    $('#narr-cvr').textContent = fmtPercent(cvr, 1);
+  }
+
+  function getPrevRaw(metric){
+    const el = $('[data-role="previous"][data-metric="' + metric + '"]');
+    return num(el ? el.textContent : 0);
+  }
+
+  // wire up listeners
+  document.addEventListener('input', function(e){
+    if(e.target.hasAttribute('contenteditable')){
+      recalc();
+    }
+  });
+
+  // prevent line breaks in editable numeric fields
+  $$('[contenteditable]').forEach(el => {
+    el.addEventListener('keydown', function(e){
+      if(e.key === 'Enter'){ e.preventDefault(); el.blur(); }
+    });
+  });
+
+  recalc();
+})();
+</script>
+
+</body>
+</html>

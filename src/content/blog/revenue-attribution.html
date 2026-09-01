@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revenue Attribution — Retention Channel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #0F1B18;
+    --surface: #152420;
+    --surface-2: #1B2C27;
+    --ink: #F2EFE9;
+    --ink-dim: #C7D0CB;
+    --muted: #7E948B;
+    --muted-bar: #33453F;
+    --muted-bar-2: #40544D;
+    --accent: #E8B23D;
+    --accent-soft: rgba(232,178,61,0.14);
+    --line: rgba(242,239,233,0.10);
+    --line-strong: rgba(242,239,233,0.18);
+  }
+
+  *{ box-sizing: border-box; }
+
+  html, body{
+    margin:0;
+    padding:0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Manrope', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  body{
+    min-height: 100vh;
+    display:flex;
+    justify-content:center;
+    padding: 72px 24px 96px;
+  }
+
+  .page{
+    width: 100%;
+    max-width: 760px;
+  }
+
+  /* subtle glow behind hero */
+  .page{
+    position: relative;
+  }
+  .glow{
+    position:absolute;
+    top: -120px;
+    left: -160px;
+    width: 480px;
+    height: 480px;
+    background: radial-gradient(circle, rgba(232,178,61,0.16) 0%, rgba(232,178,61,0) 70%);
+    pointer-events:none;
+    z-index:0;
+  }
+
+  header{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    margin-bottom: 56px;
+    position:relative;
+    z-index:1;
+  }
+
+  .kicker{
+    font-size: 14px;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+  }
+
+  .period{
+    font-size: 14px;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hero{
+    position:relative;
+    z-index:1;
+    margin-bottom: 64px;
+  }
+
+  .hero-number{
+    font-family: 'Fraunces', serif;
+    font-weight: 400;
+    font-size: clamp(88px, 18vw, 148px);
+    line-height: 0.92;
+    color: var(--accent);
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .hero-caption{
+    font-size: 19px;
+    color: var(--ink-dim);
+    max-width: 30ch;
+    line-height: 1.5;
+    margin-top: 14px;
+  }
+
+  .hero-caption strong{
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .divider{
+    height: 1px;
+    background: var(--line-strong);
+    margin: 0 0 40px;
+  }
+
+  .section-label{
+    font-size: 14px;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  .chart{
+    display:flex;
+    flex-direction:column;
+    gap: 18px;
+  }
+
+  .row{
+    display:grid;
+    grid-template-columns: 132px 1fr 64px;
+    align-items:center;
+    gap: 16px;
+    cursor: default;
+  }
+
+  .row .name{
+    font-size: 15px;
+    color: var(--ink-dim);
+    font-weight: 600;
+  }
+
+  .row.is-retention .name{
+    color: var(--ink);
+    font-weight: 700;
+  }
+
+  .track{
+    position:relative;
+    height: 34px;
+    background: var(--surface);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .fill{
+    position:absolute;
+    top:0; left:0; bottom:0;
+    width: 0%;
+    border-radius: 3px;
+    background: var(--muted-bar);
+    transition: background 0.2s ease;
+  }
+
+  .row.is-retention .fill{
+    background: var(--accent);
+  }
+
+  .row:hover .fill{
+    background: var(--muted-bar-2);
+  }
+
+  .row.is-retention:hover .fill{
+    background: var(--accent);
+    filter: brightness(1.08);
+  }
+
+  .pct{
+    font-size: 16px;
+    font-weight: 700;
+    text-align:right;
+    color: var(--ink-dim);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .row.is-retention .pct{
+    color: var(--accent);
+  }
+
+  .row-detail{
+    grid-column: 2 / 3;
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+    opacity: 0;
+    max-height: 0;
+    transition: opacity 0.15s ease;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .row:hover .row-detail{
+    opacity: 1;
+  }
+
+  footer{
+    margin-top: 56px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+    position:relative;
+    z-index:1;
+  }
+
+  .footnote{
+    font-size: 13px;
+    color: var(--muted);
+    max-width: 42ch;
+    line-height: 1.6;
+  }
+
+  .callout{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size: 13px;
+    color: var(--accent);
+    white-space: nowrap;
+  }
+
+  .callout .dot{
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background: var(--accent);
+  }
+
+  @media (max-width: 560px){
+    .row{
+      grid-template-columns: 96px 1fr 48px;
+      gap: 10px;
+    }
+    .row .name{ font-size: 13px; }
+    .hero-number{ font-size: clamp(64px, 22vw, 96px); }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .fill{ transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <div class="glow"></div>
+
+  <header>
+    <div class="kicker">Revenue attribution by channel</div>
+    <div class="period">Q2 2026</div>
+  </header>
+
+  <div class="hero">
+    <p class="hero-number">34%</p>
+    <p class="hero-caption">of attributed revenue this quarter traces back to <strong>retention</strong> — more than any other channel.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <div class="section-label">Share of total attributed revenue, by channel</div>
+
+  <div class="chart" id="chart">
+    <div class="row is-retention" data-pct="34" data-amount="$1.43M">
+      <div class="name">Retention</div>
+      <div class="track"><div class="fill"></div></div>
+      <div class="pct">34%</div>
+      <div class="row-detail">$1.43M of $4.2M attributed revenue</div>
+    </div>
+
+    <div class="row" data-pct="22" data-amount="$0.92M">
+      <div class="name">Paid search</div>
+      <div class="track"><div class="fill"></div></div>
+      <div class="pct">22%</div>
+      <div class="row-detail">$0.92M of $4.2M attributed revenue</div>
+    </div>
+
+    <div class="row" data-pct="18" data-amount="$0.76M">
+      <div class="name">Organic search</div>
+      <div class="track"><div class="fill"></div></div>
+      <div class="pct">18%</div>
+      <div class="row-detail">$0.76M of $4.2M attributed revenue</div>
+    </div>
+
+    <div class="row" data-pct="12" data-amount="$0.50M">
+      <div class="name">Paid social</div>
+      <div class="track"><div class="fill"></div></div>
+      <div class="pct">12%</div>
+      <div class="row-detail">$0.50M of $4.2M attributed revenue</div>
+    </div>
+
+    <div class="row" data-pct="8" data-amount="$0.34M">
+      <div class="name">Referral</div>
+      <div class="track"><div class="fill"></div></div>
+      <div class="pct">8%</div>
+      <div class="row-detail">$0.34M of $4.2M attributed revenue</div>
+    </div>
+
+    <div class="row" data-pct="6" data-amount="$0.25M">
+      <div class="name">Direct</div>
+      <div class="track"><div class="fill"></div></div>
+      <div class="pct">6%</div>
+      <div class="row-detail">$0.25M of $4.2M attributed revenue</div>
+    </div>
+  </div>
+
+  <footer>
+    <p class="footnote">Based on $4.2M in attributed revenue, last-touch attribution model, Q2 2026. Figures are illustrative — swap in your own numbers.</p>
+    <div class="callout"><span class="dot"></span>Retention is the top channel this quarter</div>
+  </footer>
+</div>
+
+<script>
+  const rows = document.querySelectorAll('#chart .row');
+  // set widths after paint, staggered, for a single orchestrated entrance
+  requestAnimationFrame(() => {
+    rows.forEach((row, i) => {
+      const pct = row.getAttribute('data-pct');
+      const fill = row.querySelector('.fill');
+      fill.style.transitionProperty = 'width, background';
+      fill.style.transitionDuration = '900ms, 200ms';
+      fill.style.transitionTimingFunction = 'cubic-bezier(0.16, 1, 0.3, 1)';
+      fill.style.transitionDelay = (i * 70) + 'ms';
+      setTimeout(() => {
+        fill.style.width = pct + '%';
+      }, 20);
+    });
+  });
+</script>
+
+</body>
+</html>

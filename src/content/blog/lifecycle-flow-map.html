@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lifecycle Flow Map</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEAE2;
+    --panel:#FBFAF7;
+    --panel-line:#E3DFD4;
+    --ink:#1B2420;
+    --ink-soft:#5B655D;
+    --ink-faint:#9BA39A;
+    --rule:#D6D1C4;
+    --emerald:#1E6B4F;
+    --emerald-soft:#E4EEE8;
+    --gold:#A9812E;
+    --gold-soft:#F3ECD8;
+    --rust:#A8432E;
+    --rust-soft:#F3E7E2;
+  }
+
+  *{box-sizing:border-box;}
+
+  html,body{
+    margin:0;
+    padding:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Mono', ui-monospace, monospace;
+  }
+
+  body{
+    padding:56px 20px 96px;
+  }
+
+  .sheet{
+    max-width:1180px;
+    margin:0 auto;
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    box-shadow:0 1px 0 rgba(27,36,32,0.03), 0 24px 60px -32px rgba(27,36,32,0.22);
+  }
+
+  [contenteditable]{ outline:none; border-radius:1px; }
+  [contenteditable]:hover{ background:var(--emerald-soft); }
+  [contenteditable]:focus{ background:var(--emerald-soft); box-shadow:0 0 0 1px var(--emerald); }
+
+  /* ---------- header ---------- */
+  .masthead{
+    padding:44px 48px 30px;
+    border-bottom:1px solid var(--rule);
+  }
+
+  .masthead-mark{
+    font-size:11px;
+    letter-spacing:0.04em;
+    color:var(--ink-faint);
+    margin-bottom:14px;
+  }
+
+  h1{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:500;
+    font-size:clamp(28px, 4vw, 38px);
+    line-height:1.08;
+    letter-spacing:-0.01em;
+    margin:0 0 12px;
+  }
+
+  .masthead-sub{
+    font-family:'Fraunces', Georgia, serif;
+    font-style:italic;
+    font-size:15.5px;
+    color:var(--ink-soft);
+    max-width:560px;
+    line-height:1.55;
+  }
+
+  /* ---------- legend ---------- */
+  .legend{
+    padding:20px 48px;
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    flex-wrap:wrap;
+    gap:26px;
+    align-items:center;
+  }
+
+  .legend-item{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:11px;
+    color:var(--ink-soft);
+  }
+
+  .legend-pill{
+    font-size:9.5px;
+    padding:2px 8px;
+    border-radius:20px;
+  }
+  .legend-pill.email{ background:var(--emerald-soft); color:var(--emerald); }
+  .legend-pill.sms{ background:var(--gold-soft); color:var(--gold); }
+
+  .legend-dot{ width:8px; height:8px; border-radius:50%; }
+  .legend-dot.win{ background:var(--emerald); }
+  .legend-dot.end{ background:var(--rust); }
+  .legend-dot.cont{ border:1.5px solid var(--ink-faint); background:transparent; }
+
+  /* ---------- flows layout ---------- */
+  .flows{
+    padding:44px 48px 20px;
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:40px;
+  }
+
+  .flow-header{
+    margin-bottom:28px;
+  }
+
+  .flow-title{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:500;
+    font-size:22px;
+    letter-spacing:-0.01em;
+    margin-bottom:6px;
+  }
+
+  .flow-goal{
+    font-size:10.5px;
+    color:var(--ink-faint);
+  }
+
+  .flow-track{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:stretch;
+  }
+
+  .flow-track::before{
+    content:'';
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:50%;
+    width:1.5px;
+    background:var(--rule);
+    transform:translateX(-50%);
+    z-index:0;
+  }
+
+  .item{
+    position:relative;
+    z-index:1;
+    background:var(--panel);
+  }
+
+  /* trigger */
+  .trigger{
+    align-self:center;
+    border:1.5px dashed var(--ink-faint);
+    border-radius:20px;
+    padding:8px 16px;
+    text-align:center;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    max-width:88%;
+    margin-bottom:0;
+  }
+  .trigger b{
+    display:block;
+    font-family:'Fraunces', Georgia, serif;
+    font-style:italic;
+    font-size:13px;
+    color:var(--ink);
+    margin-bottom:2px;
+    font-weight:500;
+  }
+
+  /* connector spacer with optional wait label */
+  .connector{
+    height:34px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .wait-chip{
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    border-radius:20px;
+    padding:3px 11px;
+    font-size:9.5px;
+    color:var(--ink-faint);
+  }
+
+  /* message node */
+  .node{
+    border:1px solid var(--panel-line);
+    padding:14px 16px;
+    margin:0 4px;
+  }
+
+  .node-top{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:8px;
+  }
+
+  .pill{
+    font-size:9.5px;
+    padding:2px 8px;
+    border-radius:20px;
+  }
+  .pill.email{ background:var(--emerald-soft); color:var(--emerald); }
+  .pill.sms{ background:var(--gold-soft); color:var(--gold); }
+
+  .node-time{
+    font-size:9.5px;
+    color:var(--ink-faint);
+  }
+
+  .node-title{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:500;
+    font-size:15px;
+    margin-bottom:5px;
+    padding:1px 2px;
+  }
+
+  .node-desc{
+    font-size:10.5px;
+    line-height:1.5;
+    color:var(--ink-soft);
+    padding:1px 2px;
+  }
+
+  /* decision node */
+  .decision{
+    border:1px solid var(--gold);
+    background:var(--panel);
+    padding:14px 16px;
+    margin:0 2px;
+  }
+
+  .decision-q{
+    font-family:'Fraunces', Georgia, serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:14.5px;
+    color:var(--ink);
+    margin-bottom:10px;
+    padding:1px 2px;
+  }
+
+  .outcome{
+    display:flex;
+    align-items:flex-start;
+    gap:8px;
+    font-size:10.5px;
+    color:var(--ink-soft);
+    line-height:1.5;
+    margin-bottom:6px;
+  }
+  .outcome:last-child{ margin-bottom:0; }
+
+  .dot{
+    flex:0 0 auto;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    margin-top:3px;
+  }
+  .dot.win{ background:var(--emerald); }
+  .dot.end{ background:var(--rust); }
+  .dot.cont{ border:1.5px solid var(--ink-faint); background:transparent; }
+
+  .outcome [contenteditable]{ padding:0 2px; }
+
+  /* exit node */
+  .exit{
+    align-self:center;
+    border:1.5px dashed var(--rust);
+    border-radius:20px;
+    padding:8px 16px;
+    text-align:center;
+    font-size:10.5px;
+    color:var(--rust);
+    max-width:92%;
+  }
+  .exit.positive{
+    border-color:var(--emerald);
+    color:var(--emerald);
+  }
+
+  /* ---------- footer ---------- */
+  .footer{
+    padding:30px 48px 40px;
+    border-top:1px solid var(--rule);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+  }
+
+  .footer-block{
+    font-size:12px;
+    line-height:1.7;
+    color:var(--ink-soft);
+  }
+
+  .footer-block-title{
+    font-size:10.5px;
+    color:var(--ink-faint);
+    margin-bottom:7px;
+  }
+
+  .footer-block [contenteditable]{
+    display:block;
+    min-height:18px;
+    padding:2px 3px;
+  }
+
+  .hint{
+    max-width:1180px;
+    margin:18px auto 0;
+    font-size:11px;
+    color:var(--ink-faint);
+    text-align:center;
+  }
+  .hint span{ border-bottom:1px dotted var(--ink-faint); }
+
+  @media (max-width:960px){
+    .flows{ grid-template-columns:1fr; padding:32px 24px 8px; gap:52px; }
+    .masthead, .legend, .footer{ padding-left:24px; padding-right:24px; }
+    .footer{ grid-template-columns:1fr; }
+    .legend{ gap:16px 22px; }
+  }
+
+  @media print{
+    body{ padding:0; background:#fff; }
+    .sheet{ box-shadow:none; border:none; }
+    .hint{ display:none; }
+    .flows{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- HEADER -->
+  <div class="masthead">
+    <div class="masthead-mark">Retention channel · lifecycle flow map</div>
+    <h1 contenteditable="true">Welcome, Abandonment &amp; Post-Purchase</h1>
+    <div class="masthead-sub" contenteditable="true">How each flow triggers, what it sends, and the logic that decides where a subscriber goes next.</div>
+  </div>
+
+  <!-- LEGEND -->
+  <div class="legend">
+    <div class="legend-item"><span class="legend-pill email">Email</span> message</div>
+    <div class="legend-item"><span class="legend-pill sms">SMS</span> message</div>
+    <div class="legend-item"><span class="legend-dot cont"></span> continues in flow</div>
+    <div class="legend-item"><span class="legend-dot win"></span> exits — converted</div>
+    <div class="legend-item"><span class="legend-dot end"></span> exits — no conversion</div>
+  </div>
+
+  <!-- FLOWS -->
+  <div class="flows">
+
+    <!-- WELCOME FLOW -->
+    <div class="flow">
+      <div class="flow-header">
+        <div class="flow-title" contenteditable="true">Welcome</div>
+        <div class="flow-goal" contenteditable="true">Goal — first purchase within 7 days</div>
+      </div>
+
+      <div class="flow-track">
+        <div class="item trigger">
+          <b>Trigger</b>
+          <span contenteditable="true">Subscribes via signup form, popup, or checkout opt-in</span>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="item node">
+          <div class="node-top"><span class="pill email">Email</span><span class="node-time" contenteditable="true">Immediate</span></div>
+          <div class="node-title" contenteditable="true">Welcome &amp; thank you</div>
+          <div class="node-desc" contenteditable="true">Confirms signup, sets expectations, includes a 10% off code</div>
+        </div>
+
+        <div class="connector"><span class="wait-chip" contenteditable="true">wait 2 days</span></div>
+
+        <div class="item decision">
+          <div class="decision-q" contenteditable="true">Used the welcome code?</div>
+          <div class="outcome"><span class="dot win"></span><span contenteditable="true">Yes — exits to Post-Purchase flow</span></div>
+          <div class="outcome"><span class="dot cont"></span><span contenteditable="true">No — continues below</span></div>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="item node">
+          <div class="node-top"><span class="pill email">Email</span><span class="node-time" contenteditable="true">Day 2</span></div>
+          <div class="node-title" contenteditable="true">Brand story</div>
+          <div class="node-desc" contenteditable="true">Shares the founder story and product values to build trust</div>
+        </div>
+
+        <div class="connector"><span class="wait-chip" contenteditable="true">wait 3 days</span></div>
+
+        <div class="item node">
+          <div class="node-top"><span class="pill email">Email</span><span class="node-time" contenteditable="true">Day 5</span></div>
+          <div class="node-title" contenteditable="true">Bestsellers</div>
+          <div class="node-desc" contenteditable="true">Highlights top-rated products with social proof</div>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="item decision">
+          <div class="decision-q" contenteditable="true">Opened either email?</div>
+          <div class="outcome"><span class="dot cont"></span><span contenteditable="true">Yes — continues to final nudge</span></div>
+          <div class="outcome"><span class="dot end"></span><span contenteditable="true">No — exits, suppressed from remaining sends</span></div>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="item node">
+          <div class="node-top"><span class="pill email">Email</span><span class="node-time" contenteditable="true">Day 7</span></div>
+          <div class="node-title" contenteditable="true">Last call</div>
+          <div class="node-desc" contenteditable="true">Final reminder before the welcome code expires</div>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="item exit" contenteditable="true">Flow ends — moves to general newsletter list</div>
+      </div>
+    </div>
+
+    <!-- ABANDONMENT FLOW -->
+    <div class="flow">
+      <div class="flow-header">
+        <div class="flow-title" contenteditable="true">Abandonment</div>
+        <div class="flow-goal" contenteditable="true">Goal — recover the cart within 48 hours</div>
+      </div>
+
+      <div class="flow-track">
+        <div class="item trigger">
+          <b>Trigger</b>
+          <span contenteditable="true">Adds to cart or views a product, no purchase within 1 hour</span>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="item node">
+          <div class="node-top"><span class="pill email">Email</span><span class="node-time" contenteditable="true">1 hour</span></div>
+          <div class="node-title" contenteditable="true">You left something behind</div>
+          <div class="node-desc" contenteditable="true">Reminder with product image and a direct link back to cart</div>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="item decision">
+          <div class="decision-q" contenteditable="true">Purchased?</div>
+          <div class="outcome"><span class="dot win"></span><span contenteditable="true">Yes — exits to Post-Purchase flow</span></div>
+          <div class="outcome"><span class="dot cont"></span><span contenteditable="true">No — continues below</span></div>
+        </div>
+
+        <div class="connector"><span class="wait-chip" contenteditable="true">wait 23 hours</span></div>
+
+        <div class="item node">
+          <div class="node-top"><span class="pill sms">SMS</span><span class="node-time" contenteditable="true">24 hours</span></div>
+          <div class="node-title" contenteditable="true">Still deciding?</div>
+          <div class="node-desc" contenteditable="true">Short, casual nudge with a direct link back to cart</div>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="item decision">
+          <div class="decision-q" contenteditable="true">Purchased?</div>
+          <div class="outcome"><span class="dot win"></span><span contenteditable="true">Yes — exits to Post-Purchase flow</span></div>
+          <div class="outcome"><span class="dot cont"></span><span contenteditable="true">No — continues below</span></div>
+        </div>
+
+        <div class="connector"><span class="wait-chip" contenteditable="true">wait 24 hours</span></div>
+
+        <div class="item node">
+          <div class="node-top"><span class="pill email">Email</span><span class="node-time" contenteditable="true">48 hours</span></div>
+          <div class="node-title" contenteditable="true">10% off to finish your order</div>
+          <div class="node-desc" contenteditable="true">Time-limited incentive to recover the sale</div>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="item decision">
+          <div class="decision-q" contenteditable="true">Purchased?</div>
+          <div class="outcome"><span class="dot win"></span><span contenteditable="true">Yes — exits to Post-Purchase flow</span></div>
+          <div class="outcome"><span class="dot end"></span><span contenteditable="true">No — exits, suppressed for 14 days</span></div>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="item exit" contenteditable="true">Flow ends — re-enters eligibility after 14 days</div>
+      </div>
+    </div>
+
+    <!-- POST-PURCHASE FLOW -->
+    <div class="flow">
+      <div class="flow-header">
+        <div class="flow-title" contenteditable="true">Post-Purchase</div>
+        <div class="flow-goal" contenteditable="true">Goal — reviews, retention, and a second order</div>
+      </div>
+
+      <div class="flow-track">
+        <div class="item trigger">
+          <b>Trigger</b>
+          <span contenteditable="true">Order is placed and payment confirmed</span>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="item node">
+          <div class="node-top"><span class="pill email">Email</span><span class="node-time" contenteditable="true">Immediate</span></div>
+          <div class="node-title" contenteditable="true">Order confirmation</div>
+          <div class="node-desc" contenteditable="true">Transactional receipt and delivery estimate</div>
+        </div>
+
+        <div class="connector"><span class="wait-chip" contenteditable="true">wait until fulfilled</span></div>
+
+        <div class="item node">
+          <div class="node-top"><span class="pill email">Email</span><span class="node-time" contenteditable="true">On shipment</span></div>
+          <div class="node-title" contenteditable="true">It's on its way</div>
+          <div class="node-desc" contenteditable="true">Tracking link and delivery window</div>
+        </div>
+
+        <div class="connector"><span class="wait-chip" contenteditable="true">wait 5 days post-delivery</span></div>
+
+        <div class="item node">
+          <div class="node-top"><span class="pill email">Email</span><span class="node-time" contenteditable="true">Day 7</span></div>
+          <div class="node-title" contenteditable="true">How's it going?</div>
+          <div class="node-desc" contenteditable="true">Satisfaction check-in with a review request</div>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="item decision">
+          <div class="decision-q" contenteditable="true">Left a review?</div>
+          <div class="outcome"><span class="dot win"></span><span contenteditable="true">Yes — thank-you + loyalty points, flow ends</span></div>
+          <div class="outcome"><span class="dot cont"></span><span contenteditable="true">No — continues to cross-sell</span></div>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="item node">
+          <div class="node-top"><span class="pill email">Email</span><span class="node-time" contenteditable="true">Day 14</span></div>
+          <div class="node-title" contenteditable="true">You might also like</div>
+          <div class="node-desc" contenteditable="true">Personalized replenishment and cross-sell picks</div>
+        </div>
+
+        <div class="connector"><span class="wait-chip" contenteditable="true">wait 30 days</span></div>
+
+        <div class="item node">
+          <div class="node-top"><span class="pill email">Email</span><span class="node-time" contenteditable="true">Day 45</span></div>
+          <div class="node-title" contenteditable="true">We miss you</div>
+          <div class="node-desc" contenteditable="true">Win-back incentive if no repeat purchase yet</div>
+        </div>
+
+        <div class="connector"></div>
+
+        <div class="item exit positive" contenteditable="true">Flow ends — moves to newsletter, or restarts on repeat purchase</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-block">
+      <div class="footer-block-title">How to read this map</div>
+      <span contenteditable="true">Each column runs top to bottom. Gold-bordered cards are decision points — the dots show whether a subscriber exits (converted or not) or continues to the next step.</span>
+    </div>
+    <div class="footer-block">
+      <div class="footer-block-title">Notes</div>
+      <span contenteditable="true">Timing, copy, and exit conditions here are a starting point — click any field to adjust it to match your actual flow logic before build.</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="hint">Every field is <span>editable</span> — click a title, timing, or condition to update it.</div>
+
+</body>
+</html>
