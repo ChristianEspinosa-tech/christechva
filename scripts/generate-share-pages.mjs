@@ -3,7 +3,7 @@
 // (the SPA's client-side <Helmet> tags are invisible to them), and they redirect
 // real visitors to the app route /blog/<slug>.
 // Runs automatically before every build (see "prebuild" in package.json).
-import { readdirSync, readFileSync, writeFileSync, mkdirSync, rmSync } from "node:fs";
+import { readdirSync, readFileSync, writeFileSync, mkdirSync, rmSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -45,7 +45,16 @@ for (const file of files) {
     metaContent(raw, "og:description") ||
     metaContent(raw, "description", "name") ||
     stripTags(match(raw, /<p[^>]*>([\s\S]*?)<\/p>/i) || "").slice(0, 160);
-  const image = metaContent(raw, "og:image") || `${SITE_URL}/og-image.png`;
+  // Only reference an image that actually ships in public/ — a 404 image makes
+  // Messenger show no preview image at all.
+  const declaredImage = metaContent(raw, "og:image");
+  const localPath = declaredImage?.startsWith(SITE_URL)
+    ? fileURLToPath(new URL(".." + declaredImage.slice(SITE_URL.length), new URL("../public/", import.meta.url)))
+    : null;
+  const image =
+    declaredImage && (!localPath || existsSync(localPath))
+      ? declaredImage
+      : `${SITE_URL}/og-image.png`;
   const date = metaContent(raw, "date", "name");
   const shareUrl = `${SITE_URL}/blog/${slug}.html`;
   const appUrl = `${SITE_URL}/blog/${slug}`;
