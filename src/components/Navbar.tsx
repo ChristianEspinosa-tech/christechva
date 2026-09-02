@@ -5,14 +5,14 @@ import { Link } from "react-router-dom";
 import profileImg from "@/assets/profile.png";
 import { trackEvent } from "@/lib/analytics";
 
-
+// These are standard HTML anchors. They will never 404 because they don't rely on the router.
 const navLinks = [
-  { label: "About", href: "/christechva/#about" },
-  { label: "Services", href: "/christechva/#solutions" },
-  { label: "Process", href: "/christechva/#process" },
-  { label: "Portfolio", href: "/christechva/#portfolio" },
-  { label: "Testimonials", href: "/christechva/#testimonials" },
-  { label: "Contact", href: "/christechva/#contact" },
+  { label: "About", href: "#about" },
+  { label: "Services", href: "#solutions" },
+  { label: "Process", href: "#process" },
+  { label: "Portfolio", href: "#portfolio" },
+  { label: "Testimonials", href: "#testimonials" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const Navbar = () => {
@@ -21,6 +21,7 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/30">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
+        {/* LOGO: Use a standard anchor to go to the homepage */}
         <a href="/christechva/" className="flex items-center gap-3 font-display font-bold text-lg">
           <img src={profileImg} alt="Christian Espinosa" className="w-9 h-9 rounded-full object-cover border-2 border-primary/30" />
           <div className="flex items-center gap-1.5">
@@ -48,8 +49,8 @@ const Navbar = () => {
             Blog
           </Link>
           <a
-            href="/christechva/#contact"
-            onClick={() => trackEvent("lets_talk_click", { location: "navbar_desktop", label: "Let's Talk", destination: "/christechva/#contact" })}
+            href="#contact"
+            onClick={() => trackEvent("lets_talk_click", { location: "navbar_desktop", label: "Let's Talk", destination: "#contact" })}
             className="btn-primary text-sm py-2 px-6 rounded-lg inline-block"
           >
             Let's Talk
@@ -99,10 +100,10 @@ const Navbar = () => {
                 Blog
               </Link>
               <a
-                href="/christechva/#contact"
+                href="#contact"
                 onClick={() => {
                   setOpen(false);
-                  trackEvent("lets_talk_click", { location: "navbar_mobile", label: "Let's Talk", destination: "/christechva/#contact" });
+                  trackEvent("lets_talk_click", { location: "navbar_mobile", label: "Let's Talk", destination: "#contact" });
                 }}
                 className="btn-primary text-center text-sm py-2 rounded-lg"
               >
