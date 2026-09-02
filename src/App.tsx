@@ -23,6 +23,8 @@ const App = () => (
           <Route path="/blog" element={<Blog />} />
           {/* ADD THE ROUTE BACK SO IT USES THE HASH */}
           <Route path="/blog/:slug" element={<BlogPost />} />
+          {/* THIS LINE FIXES THE 404 FOR NAVBAR SECTION LINKS */}
+          <Route path="/:section" element={<Index />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </HashRouter>
