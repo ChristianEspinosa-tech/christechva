@@ -49,7 +49,7 @@ for (const file of files) {
   // Messenger show no preview image at all.
   const declaredImage = metaContent(raw, "og:image");
   const localPath = declaredImage?.startsWith(SITE_URL)
-    ? fileURLToPath(new URL(".." + declaredImage.slice(SITE_URL.length), new URL("../public/", import.meta.url)))
+    ? fileURLToPath(new URL("." + declaredImage.slice(SITE_URL.length), new URL("../public/", import.meta.url)))
     : null;
   const image =
     declaredImage && (!localPath || existsSync(localPath))
