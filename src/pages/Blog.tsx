@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import { Helmet } from "react-helmet-async";
-import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight, CalendarDays, Search } from "lucide-react";
 import { blogPosts, formatDate } from "@/lib/blog";
 import { trackEvent } from "@/lib/analytics";
@@ -36,12 +35,13 @@ const Blog = () => {
       </Helmet>
 
       <div className="container mx-auto max-w-3xl px-4 py-24">
-        <Link
-          to="/"
+        {/* Replaced Link with standard anchor tag for navigation */}
+        <a
+          href="/christechva/"
           className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
         >
           <ArrowLeft className="h-4 w-4" /> Back to portfolio
-        </Link>
+        </a>
 
         <header className="mt-8 mb-12">
           <h1 className="font-display text-4xl font-bold text-foreground md:text-5xl">Blog</h1>
@@ -70,8 +70,9 @@ const Blog = () => {
           <ul className="space-y-4">
             {filteredPosts.map((post) => (
               <li key={post.slug}>
-                <Link
-                  to={`/blog/${post.slug}`}
+                {/* REPLACED React Router Link with standard <a> tag pointing to the .html file */}
+                <a
+                  href={`/christechva/blog/${post.slug}.html`}
                   onClick={() =>
                     trackEvent("nav_click", {
                       location: "blog_index",
@@ -96,7 +97,7 @@ const Blog = () => {
                   <span className="mt-4 inline-flex items-center gap-1 text-sm text-primary">
                     Read post <ArrowRight className="h-4 w-4" />
                   </span>
-                </Link>
+                </a>
               </li>
             ))}
           </ul>
