@@ -17,13 +17,12 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
-      {/* SWITCHED TO HASH ROUTER - NO BASENAME NEEDED */}
       <HashRouter>
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/blog" element={<Blog />} />
-
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+          {/* ADD THE ROUTE BACK SO IT USES THE HASH */}
+          <Route path="/blog/:slug" element={<BlogPost />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </HashRouter>
