@@ -29,6 +29,11 @@ const BlogPost = () => {
         <meta property="og:title" content={post.title} />
         {post.description && <meta property="og:description" content={post.description} />}
         <meta property="og:type" content="article" />
+        {/* Share this URL on Messenger/Facebook: it is a static page with real OG tags. */}
+        <meta
+          property="og:url"
+          content={`https://christianespinosa-tech.github.io/christechva/blog/${post.slug}.html`}
+        />
       </Helmet>
 
       <article className="container mx-auto max-w-3xl px-4 py-24">
