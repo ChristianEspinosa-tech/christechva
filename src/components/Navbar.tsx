@@ -7,12 +7,12 @@ import { trackEvent } from "@/lib/analytics";
 
 
 const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#solutions" },
-  { label: "Process", href: "#process" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", href: "/#about" },
+  { label: "Services", href: "/#solutions" },
+  { label: "Process", href: "/#process" },
+  { label: "Portfolio", href: "/#portfolio" },
+  { label: "Testimonials", href: "/#testimonials" },
+  { label: "Contact", href: "/#contact" },
 ];
 
 const Navbar = () => {
@@ -21,7 +21,7 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/30">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        <a href="#" className="flex items-center gap-3 font-display font-bold text-lg">
+        <a href="/#" className="flex items-center gap-3 font-display font-bold text-lg">
           <img src={profileImg} alt="Christian Espinosa" className="w-9 h-9 rounded-full object-cover border-2 border-primary/30" />
           <div className="flex items-center gap-1.5">
             <span className="text-foreground">Christian</span>
@@ -48,8 +48,8 @@ const Navbar = () => {
             Blog
           </Link>
           <a
-            href="#contact"
-            onClick={() => trackEvent("lets_talk_click", { location: "navbar_desktop", label: "Let's Talk", destination: "#contact" })}
+            href="/#contact"
+            onClick={() => trackEvent("lets_talk_click", { location: "navbar_desktop", label: "Let's Talk", destination: "/#contact" })}
             className="btn-primary text-sm py-2 px-6 rounded-lg inline-block"
           >
             Let's Talk
@@ -99,10 +99,10 @@ const Navbar = () => {
                 Blog
               </Link>
               <a
-                href="#contact"
+                href="/#contact"
                 onClick={() => {
                   setOpen(false);
-                  trackEvent("lets_talk_click", { location: "navbar_mobile", label: "Let's Talk", destination: "#contact" });
+                  trackEvent("lets_talk_click", { location: "navbar_mobile", label: "Let's Talk", destination: "/#contact" });
                 }}
                 className="btn-primary text-center text-sm py-2 rounded-lg"
               >
