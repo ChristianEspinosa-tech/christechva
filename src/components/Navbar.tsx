@@ -6,12 +6,12 @@ import profileImg from "@/assets/profile.png";
 import { trackEvent } from "@/lib/analytics";
 
 const navLinks = [
-  { label: "About", to: "/#about" },
-  { label: "Services", to: "/#solutions" },
-  { label: "Process", to: "/#process" },
-  { label: "Portfolio", to: "/#portfolio" },
-  { label: "Testimonials", to: "/#testimonials" },
-  { label: "Contact", to: "/#contact" },
+  { label: "About", href: "#about" },
+  { label: "Services", href: "#solutions" },
+  { label: "Process", href: "#process" },
+  { label: "Portfolio", href: "#portfolio" },
+  { label: "Testimonials", href: "#testimonials" },
+  { label: "Contact", href: "#contact" },
 ];
 
 const Navbar = () => {
@@ -20,24 +20,25 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/30">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        <Link to="/" className="flex items-center gap-3 font-display font-bold text-lg">
+        <a href="/christechva/" className="flex items-center gap-3 font-display font-bold text-lg">
           <img src={profileImg} alt="Christian Espinosa" className="w-9 h-9 rounded-full object-cover border-2 border-primary/30" />
           <div className="flex items-center gap-1.5">
             <span className="text-foreground">Christian</span>
             <span className="text-primary">Espinosa</span>
           </div>
-        </Link>
+        </a>
 
         <div className="hidden md:flex items-center gap-8">
+          {/* Use standard <a> tags for smooth scrolling sections */}
           {navLinks.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              onClick={() => trackEvent("nav_click", { location: "navbar_desktop", label: l.label, destination: l.to })}
+            <a
+              key={l.href}
+              href={l.href}
+              onClick={() => trackEvent("nav_click", { location: "navbar_desktop", label: l.label, destination: l.href })}
               className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
             >
               {l.label}
-            </Link>
+            </a>
           ))}
           <Link
             to="/blog"
@@ -46,13 +47,13 @@ const Navbar = () => {
           >
             Blog
           </Link>
-          <Link
-            to="/#contact"
-            onClick={() => trackEvent("lets_talk_click", { location: "navbar_desktop", label: "Let's Talk", destination: "/#contact" })}
+          <a
+            href="#contact"
+            onClick={() => trackEvent("lets_talk_click", { location: "navbar_desktop", label: "Let's Talk", destination: "#contact" })}
             className="btn-primary text-sm py-2 px-6 rounded-lg inline-block"
           >
             Let's Talk
-          </Link>
+          </a>
         </div>
 
         <button
@@ -75,17 +76,17 @@ const Navbar = () => {
           >
             <div className="flex flex-col p-4 gap-4">
               {navLinks.map((l) => (
-                <Link
-                  key={l.to}
-                  to={l.to}
+                <a
+                  key={l.href}
+                  href={l.href}
                   onClick={() => {
                     setOpen(false);
-                    trackEvent("nav_click", { location: "navbar_mobile", label: l.label, destination: l.to });
+                    trackEvent("nav_click", { location: "navbar_mobile", label: l.label, destination: l.href });
                   }}
                   className="text-muted-foreground hover:text-primary transition-colors py-2"
                 >
                   {l.label}
-                </Link>
+                </a>
               ))}
               <Link
                 to="/blog"
@@ -97,16 +98,16 @@ const Navbar = () => {
               >
                 Blog
               </Link>
-              <Link
-                to="/#contact"
+              <a
+                href="#contact"
                 onClick={() => {
                   setOpen(false);
-                  trackEvent("lets_talk_click", { location: "navbar_mobile", label: "Let's Talk", destination: "/#contact" });
+                  trackEvent("lets_talk_click", { location: "navbar_mobile", label: "Let's Talk", destination: "#contact" });
                 }}
                 className="btn-primary text-center text-sm py-2 rounded-lg"
               >
                 Let's Talk
-              </Link>
+              </a>
             </div>
           </motion.div>
         )}
