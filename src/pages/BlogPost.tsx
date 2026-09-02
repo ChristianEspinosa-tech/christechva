@@ -1,17 +1,21 @@
 import { Helmet } from "react-helmet-async";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, CalendarDays, Check, Copy } from "lucide-react";
-import { useState } from "react";
+import { ArrowLeft, CalendarDays } from "lucide-react";
+// 👇 ADD THESE TWO LINES HERE 👇
+import { useState } from "react"; 
+import { Check, Copy } from "lucide-react"; 
+// 👆 ADD THESE TWO LINES HERE 👆
 import { getPost, formatDate } from "@/lib/blog";
 
 const BlogPost = () => {
   const { slug } = useParams();
   const post = getPost(slug);
-  const [copied, setCopied] = useState(false);
+  // This state tracks whether the user just copied the link
+  const [copied, setCopied] = useState(false); 
 
+  // This function creates the perfect .html link and copies it
   const handleCopyShareLink = () => {
     if (!post) return;
-    // This is the perfect .html link for Messenger/Facebook
     const shareUrl = `https://christianespinosa-tech.github.io/christechva/blog/${post.slug}.html`;
     
     navigator.clipboard.writeText(shareUrl).then(() => {
@@ -50,6 +54,7 @@ const BlogPost = () => {
       </Helmet>
 
       <article className="container mx-auto max-w-3xl px-4 py-24">
+        {/* START of the button section */}
         <div className="flex items-center justify-between">
           <Link
             to="/blog"
@@ -58,7 +63,7 @@ const BlogPost = () => {
             <ArrowLeft className="h-4 w-4" /> All posts
           </Link>
 
-          {/* NEW: Copy Share Link Button */}
+          {/* THE COPY SHARE LINK BUTTON */}
           <button
             onClick={handleCopyShareLink}
             className="inline-flex items-center gap-2 rounded-md border border-border/40 bg-card/40 px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-primary"
@@ -67,6 +72,7 @@ const BlogPost = () => {
             {copied ? "Copied!" : "Copy Share Link"}
           </button>
         </div>
+        {/* END of the button section */}
 
         {post.date && (
           <span className="mt-8 inline-flex items-center gap-2 text-xs uppercase tracking-wide text-muted-foreground">
