@@ -5,15 +5,6 @@ import "./index.css";
 import { captureUtmParams } from "./lib/analytics";
 import { hasAnalyticsConsent, subscribeToConsent } from "./lib/consent";
 
-// This handles the GitHub Pages 404 redirect (the ?/ path)
-if (window.location.search.startsWith('?/')) {
-  const cleanPath = window.location.search.slice(1) + window.location.hash;
-  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-  const fullPath = base + '/' + cleanPath.replace(/^\//, '');
-  window.history.replaceState(null, '', fullPath);
-}
-// ---------------------------
-
 // Attribution is only stored once the visitor has accepted cookies.
 if (hasAnalyticsConsent()) {
   captureUtmParams();
