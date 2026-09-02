@@ -57,7 +57,7 @@ for (const file of files) {
       : `${SITE_URL}/og-image.png`;
   const date = metaContent(raw, "date", "name");
   const shareUrl = `${SITE_URL}/blog/${slug}.html`;
-  const appUrl = `${SITE_URL}/blog/${slug}`;
+  const appUrl = `${SITE_URL}/#/blog/${slug}`;
 
   const html = `<!doctype html>
 <html lang="en">
