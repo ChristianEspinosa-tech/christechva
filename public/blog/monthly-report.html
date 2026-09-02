@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Monthly Performance Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EDEAE2;
+    --panel:#FBFAF7;
+    --panel-line:#E3DFD4;
+    --ink:#1B2420;
+    --ink-soft:#5B655D;
+    --ink-faint:#9BA39A;
+    --rule:#D6D1C4;
+    --emerald:#1E6B4F;
+    --emerald-soft:#E4EEE8;
+    --gold:#A9812E;
+    --gold-soft:#F3ECD8;
+    --rust:#A8432E;
+    --rust-soft:#F3E7E2;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{
+    margin:0; padding:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Mono', ui-monospace, monospace;
+  }
+  body{ padding:56px 20px 96px; }
+
+  .sheet{
+    max-width:920px;
+    margin:0 auto;
+    background:var(--panel);
+    border:1px solid var(--panel-line);
+    box-shadow:0 1px 0 rgba(27,36,32,0.03), 0 24px 60px -32px rgba(27,36,32,0.22);
+  }
+
+  [contenteditable]{ outline:none; border-radius:1px; }
+  [contenteditable]:hover{ background:var(--emerald-soft); }
+  [contenteditable]:focus{ background:var(--emerald-soft); box-shadow:0 0 0 1px var(--emerald); }
+
+  /* ---------- header ---------- */
+  .masthead{
+    padding:44px 48px 26px;
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:24px;
+    flex-wrap:wrap;
+  }
+  .masthead-mark{ font-size:11px; letter-spacing:0.04em; color:var(--ink-faint); margin-bottom:14px; }
+  h1{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:500;
+    font-size:clamp(26px, 3.6vw, 34px);
+    line-height:1.1;
+    letter-spacing:-0.01em;
+    margin:0;
+  }
+  .masthead-for{
+    text-align:right;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    line-height:1.8;
+  }
+  .masthead-for b{ color:var(--ink); font-weight:600; }
+
+  /* ---------- agenda ---------- */
+  .agenda{
+    padding:22px 48px;
+    border-bottom:1px solid var(--rule);
+    display:flex;
+    align-items:center;
+    gap:22px;
+    flex-wrap:wrap;
+  }
+  .agenda-label{ font-size:10.5px; color:var(--ink-faint); flex:0 0 auto; }
+  .agenda-items{ display:flex; gap:14px; flex-wrap:wrap; }
+  .agenda-chip{
+    font-size:11px;
+    color:var(--ink-soft);
+    border:1px solid var(--panel-line);
+    border-radius:20px;
+    padding:5px 13px;
+  }
+  .agenda-chip span{ padding:0 1px; }
+
+  /* ---------- executive summary ---------- */
+  .summary{
+    padding:38px 48px 34px;
+    border-bottom:1px solid var(--rule);
+  }
+  .summary-label{ font-size:10.5px; color:var(--ink-faint); margin-bottom:14px; }
+  .summary-text{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:400;
+    font-size:clamp(19px, 2.6vw, 24px);
+    line-height:1.5;
+    letter-spacing:-0.005em;
+    color:var(--ink);
+    max-width:720px;
+  }
+  .summary-text b{ font-weight:600; color:var(--emerald); }
+
+  /* ---------- kpi snapshot ---------- */
+  .kpis{
+    padding:32px 48px;
+    border-bottom:1px solid var(--rule);
+  }
+  .kpis-label{ font-size:10.5px; color:var(--ink-faint); margin-bottom:18px; }
+  .kpi-row{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:0;
+    border-top:1px solid var(--panel-line);
+    border-left:1px solid var(--panel-line);
+  }
+  .kpi{
+    border-right:1px solid var(--panel-line);
+    border-bottom:1px solid var(--panel-line);
+    padding:16px 14px;
+    display:flex;
+    flex-direction:column;
+    gap:8px;
+  }
+  .kpi-name{ font-size:9.5px; color:var(--ink-faint); line-height:1.4; min-height:26px; }
+  .kpi-value{ font-size:21px; font-weight:600; font-variant-numeric:tabular-nums; }
+  .kpi-delta{
+    font-size:10px;
+    display:flex;
+    align-items:center;
+    gap:4px;
+  }
+  .kpi-delta.up{ color:var(--emerald); }
+  .kpi-delta.watch{ color:var(--gold); }
+
+  /* ---------- insights ---------- */
+  .insights{ padding:34px 48px 14px; }
+  .insights-label{ font-size:10.5px; color:var(--ink-faint); margin-bottom:18px; }
+  .insight{
+    display:grid;
+    grid-template-columns:16px 1fr;
+    gap:14px;
+    padding:18px 0;
+    border-bottom:1px solid var(--panel-line);
+  }
+  .insight:last-child{ border-bottom:none; }
+  .insight-dot{
+    width:9px; height:9px; border-radius:50%;
+    margin-top:6px;
+  }
+  .insight-dot.win{ background:var(--emerald); }
+  .insight-dot.watch{ background:var(--gold); }
+  .insight-dot.opp{ border:1.5px solid var(--ink-faint); background:transparent; }
+  .insight-title{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:500;
+    font-size:15.5px;
+    margin-bottom:6px;
+    padding:1px 2px;
+  }
+  .insight-body{
+    font-size:12px;
+    line-height:1.7;
+    color:var(--ink-soft);
+    padding:1px 2px;
+    max-width:640px;
+  }
+
+  /* ---------- recommendations ---------- */
+  .recs{ padding:20px 48px 10px; }
+  .recs-label{ font-size:10.5px; color:var(--ink-faint); margin-bottom:18px; }
+  .rec{
+    display:grid;
+    grid-template-columns:28px 1fr;
+    gap:14px;
+    padding:16px 0;
+    border-bottom:1px solid var(--panel-line);
+  }
+  .rec:last-child{ border-bottom:none; }
+  .rec-num{
+    font-size:13px;
+    color:var(--ink-faint);
+    font-weight:600;
+    padding-top:1px;
+  }
+  .rec-title{
+    font-family:'Fraunces', Georgia, serif;
+    font-weight:500;
+    font-size:14.5px;
+    margin-bottom:5px;
+    padding:1px 2px;
+  }
+  .rec-body{
+    font-size:12px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    padding:1px 2px;
+    max-width:640px;
+  }
+
+  /* ---------- footer ---------- */
+  .footer{
+    padding:30px 48px 40px;
+    border-top:1px solid var(--rule);
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:32px;
+  }
+  .footer-block{ font-size:12px; line-height:1.7; color:var(--ink-soft); }
+  .footer-block-title{ font-size:10.5px; color:var(--ink-faint); margin-bottom:7px; }
+  .footer-block [contenteditable]{ display:block; min-height:18px; padding:2px 3px; }
+
+  .hint{
+    max-width:920px;
+    margin:18px auto 0;
+    font-size:11px;
+    color:var(--ink-faint);
+    text-align:center;
+  }
+  .hint span{ border-bottom:1px dotted var(--ink-faint); }
+
+  @media (max-width:760px){
+    .masthead, .agenda, .summary, .kpis, .insights, .recs, .footer{ padding-left:24px; padding-right:24px; }
+    .masthead{ flex-direction:column; }
+    .masthead-for{ text-align:left; }
+    .kpi-row{ grid-template-columns:repeat(2, 1fr); }
+    .footer{ grid-template-columns:1fr; }
+  }
+
+  @media print{
+    body{ padding:0; background:#fff; }
+    .sheet{ box-shadow:none; border:none; }
+    .hint{ display:none; }
+    .kpi-row{ grid-template-columns:repeat(5, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<div class="sheet">
+
+  <!-- HEADER -->
+  <div class="masthead">
+    <div>
+      <div class="masthead-mark">Retention channel · monthly report</div>
+      <h1 contenteditable="true">October Performance Report</h1>
+    </div>
+    <div class="masthead-for">
+      Prepared for <b contenteditable="true">[Client name]</b><br>
+      Period <span contenteditable="true">Oct 1–31, 2026</span><br>
+      Call date <span contenteditable="true">Nov 4, 2026</span>
+    </div>
+  </div>
+
+  <!-- AGENDA -->
+  <div class="agenda">
+    <div class="agenda-label">On this call</div>
+    <div class="agenda-items">
+      <div class="agenda-chip"><span contenteditable="true">1. Review October performance</span></div>
+      <div class="agenda-chip"><span contenteditable="true">2. Walk through wins &amp; watch-outs</span></div>
+      <div class="agenda-chip"><span contenteditable="true">3. Align on November priorities</span></div>
+    </div>
+  </div>
+
+  <!-- EXECUTIVE SUMMARY -->
+  <div class="summary">
+    <div class="summary-label">Executive summary</div>
+    <div class="summary-text" contenteditable="true">
+      October was a strong month for retention — revenue per recipient rose <b>12%</b> and deliverability held above 96%. The main opportunity for November is converting the growing new-subscriber segment before it cools.
+    </div>
+  </div>
+
+  <!-- KPI SNAPSHOT -->
+  <div class="kpis">
+    <div class="kpis-label">KPI snapshot — vs. September</div>
+    <div class="kpi-row">
+      <div class="kpi">
+        <div class="kpi-name">Revenue per recipient</div>
+        <div class="kpi-value" contenteditable="true">$0.42</div>
+        <div class="kpi-delta up">▲ <span contenteditable="true">12%</span></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-name">Click-through rate</div>
+        <div class="kpi-value" contenteditable="true">5.1%</div>
+        <div class="kpi-delta up">▲ <span contenteditable="true">6%</span></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-name">Conversion rate</div>
+        <div class="kpi-value" contenteditable="true">18.7%</div>
+        <div class="kpi-delta up">▲ <span contenteditable="true">9%</span></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-name">Deliverability</div>
+        <div class="kpi-value" contenteditable="true">96.2%</div>
+        <div class="kpi-delta watch">▲ <span contenteditable="true">0.4pt</span></div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-name">List growth</div>
+        <div class="kpi-value" contenteditable="true">3.1%</div>
+        <div class="kpi-delta up">▲ <span contenteditable="true">0.3pt</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INSIGHTS -->
+  <div class="insights">
+    <div class="insights-label">What happened, and why</div>
+
+    <div class="insight">
+      <span class="insight-dot win"></span>
+      <div>
+        <div class="insight-title" contenteditable="true">Revenue per recipient is climbing</div>
+        <div class="insight-body" contenteditable="true">The VIP early-access test and a stronger welcome flow are the two biggest drivers — both are now outperforming last month's baseline and are worth scaling.</div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <span class="insight-dot watch"></span>
+      <div>
+        <div class="insight-title" contenteditable="true">Deliverability dipped mid-month</div>
+        <div class="insight-body" contenteditable="true">A short dip around Oct 16–19 tracked with a spike in sends to the lapsed segment. It's since recovered, but worth monitoring before the next high-volume send.</div>
+      </div>
+    </div>
+
+    <div class="insight">
+      <span class="insight-dot opp"></span>
+      <div>
+        <div class="insight-title" contenteditable="true">New subscribers are outpacing engagement</div>
+        <div class="insight-body" contenteditable="true">List growth is healthy, but the new-subscriber segment isn't converting to "active" as quickly as prior cohorts — the welcome flow may need another touchpoint.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECOMMENDATIONS -->
+  <div class="recs">
+    <div class="recs-label">Recommendations for November</div>
+
+    <div class="rec">
+      <div class="rec-num">01</div>
+      <div>
+        <div class="rec-title" contenteditable="true">Roll out the winning offer framing</div>
+        <div class="rec-body" contenteditable="true">Apply the dollar-off framing from the October test across all abandonment sends, not just the test segment.</div>
+      </div>
+    </div>
+
+    <div class="rec">
+      <div class="rec-num">02</div>
+      <div>
+        <div class="rec-title" contenteditable="true">Add SMS to the abandonment flow</div>
+        <div class="rec-body" contenteditable="true">Currently email-only — adding a same-day SMS touch is projected to lift cart recovery meaningfully based on the current test.</div>
+      </div>
+    </div>
+
+    <div class="rec">
+      <div class="rec-num">03</div>
+      <div>
+        <div class="rec-title" contenteditable="true">Launch a targeted re-engagement send</div>
+        <div class="rec-body" contenteditable="true">The at-risk segment is 15% of the list and growing — a dedicated campaign now is cheaper than a win-back later.</div>
+      </div>
+    </div>
+
+    <div class="rec">
+      <div class="rec-num">04</div>
+      <div>
+        <div class="rec-title" contenteditable="true">Suppress the lapsed segment from bulk sends</div>
+        <div class="rec-body" contenteditable="true">Protects deliverability ahead of the holiday send volume increase in December.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-block">
+      <div class="footer-block-title">Next report</div>
+      <span contenteditable="true">November's report will be sent the first week of December, ahead of the next call.</span>
+    </div>
+    <div class="footer-block">
+      <div class="footer-block-title">Notes from the call</div>
+      <span contenteditable="true">Add anything discussed live here so it's captured before the next cycle.</span>
+    </div>
+  </div>
+
+</div>
+
+<div class="hint">Every field is <span>editable</span> — click a figure, insight, or recommendation to update it before the call.</div>
+
+</body>
+</html>
