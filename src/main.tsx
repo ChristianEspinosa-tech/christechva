@@ -9,7 +9,7 @@ import { hasAnalyticsConsent, subscribeToConsent } from "./lib/consent";
 if (window.location.search.startsWith('?/')) {
   const cleanPath = window.location.search.slice(1) + window.location.hash;
   // Keep the basename! We build the path including the base URL.
-  const fullPath = import.meta.env.BASE_URL.replace(/\/$/, '') + cleanPath;
+ const fullPath = import.meta.env.BASE_URL.replace(/\/$/, '') + '/' + cleanPath.replace(/^\//, '');
   window.history.replaceState(null, '', fullPath);
 }
 // ---------------------------
