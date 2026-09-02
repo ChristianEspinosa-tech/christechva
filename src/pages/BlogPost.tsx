@@ -1,11 +1,24 @@
 import { Helmet } from "react-helmet-async";
 import { Link, useParams } from "react-router-dom";
-import { ArrowLeft, CalendarDays } from "lucide-react";
+import { ArrowLeft, CalendarDays, Check, Copy } from "lucide-react";
+import { useState } from "react";
 import { getPost, formatDate } from "@/lib/blog";
 
 const BlogPost = () => {
   const { slug } = useParams();
   const post = getPost(slug);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyShareLink = () => {
+    if (!post) return;
+    // This is the perfect .html link for Messenger/Facebook
+    const shareUrl = `https://christianespinosa-tech.github.io/christechva/blog/${post.slug}.html`;
+    
+    navigator.clipboard.writeText(shareUrl).then(() => {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    });
+  };
 
   if (!post) {
     return (
@@ -37,12 +50,23 @@ const BlogPost = () => {
       </Helmet>
 
       <article className="container mx-auto max-w-3xl px-4 py-24">
-        <Link
-          to="/blog"
-          className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
-        >
-          <ArrowLeft className="h-4 w-4" /> All posts
-        </Link>
+        <div className="flex items-center justify-between">
+          <Link
+            to="/blog"
+            className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-primary"
+          >
+            <ArrowLeft className="h-4 w-4" /> All posts
+          </Link>
+
+          {/* NEW: Copy Share Link Button */}
+          <button
+            onClick={handleCopyShareLink}
+            className="inline-flex items-center gap-2 rounded-md border border-border/40 bg-card/40 px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:text-primary"
+          >
+            {copied ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
+            {copied ? "Copied!" : "Copy Share Link"}
+          </button>
+        </div>
 
         {post.date && (
           <span className="mt-8 inline-flex items-center gap-2 text-xs uppercase tracking-wide text-muted-foreground">
