@@ -5,14 +5,13 @@ import { Link } from "react-router-dom";
 import profileImg from "@/assets/profile.png";
 import { trackEvent } from "@/lib/analytics";
 
-// These are standard HTML anchors. They will never 404 because they don't rely on the router.
 const navLinks = [
-  { label: "About", href: "#about" },
-  { label: "Services", href: "#solutions" },
-  { label: "Process", href: "#process" },
-  { label: "Portfolio", href: "#portfolio" },
-  { label: "Testimonials", href: "#testimonials" },
-  { label: "Contact", href: "#contact" },
+  { label: "About", to: "/#about" },
+  { label: "Services", to: "/#solutions" },
+  { label: "Process", to: "/#process" },
+  { label: "Portfolio", to: "/#portfolio" },
+  { label: "Testimonials", to: "/#testimonials" },
+  { label: "Contact", to: "/#contact" },
 ];
 
 const Navbar = () => {
@@ -21,25 +20,24 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/30">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        {/* LOGO: Use a standard anchor to go to the homepage */}
-        <a href="/christechva/" className="flex items-center gap-3 font-display font-bold text-lg">
+        <Link to="/" className="flex items-center gap-3 font-display font-bold text-lg">
           <img src={profileImg} alt="Christian Espinosa" className="w-9 h-9 rounded-full object-cover border-2 border-primary/30" />
           <div className="flex items-center gap-1.5">
             <span className="text-foreground">Christian</span>
             <span className="text-primary">Espinosa</span>
           </div>
-        </a>
+        </Link>
 
         <div className="hidden md:flex items-center gap-8">
           {navLinks.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              onClick={() => trackEvent("nav_click", { location: "navbar_desktop", label: l.label, destination: l.href })}
+            <Link
+              key={l.to}
+              to={l.to}
+              onClick={() => trackEvent("nav_click", { location: "navbar_desktop", label: l.label, destination: l.to })}
               className="text-sm text-muted-foreground hover:text-primary transition-colors duration-200"
             >
               {l.label}
-            </a>
+            </Link>
           ))}
           <Link
             to="/blog"
@@ -48,13 +46,13 @@ const Navbar = () => {
           >
             Blog
           </Link>
-          <a
-            href="#contact"
-            onClick={() => trackEvent("lets_talk_click", { location: "navbar_desktop", label: "Let's Talk", destination: "#contact" })}
+          <Link
+            to="/#contact"
+            onClick={() => trackEvent("lets_talk_click", { location: "navbar_desktop", label: "Let's Talk", destination: "/#contact" })}
             className="btn-primary text-sm py-2 px-6 rounded-lg inline-block"
           >
             Let's Talk
-          </a>
+          </Link>
         </div>
 
         <button
@@ -77,17 +75,17 @@ const Navbar = () => {
           >
             <div className="flex flex-col p-4 gap-4">
               {navLinks.map((l) => (
-                <a
-                  key={l.href}
-                  href={l.href}
+                <Link
+                  key={l.to}
+                  to={l.to}
                   onClick={() => {
                     setOpen(false);
-                    trackEvent("nav_click", { location: "navbar_mobile", label: l.label, destination: l.href });
+                    trackEvent("nav_click", { location: "navbar_mobile", label: l.label, destination: l.to });
                   }}
                   className="text-muted-foreground hover:text-primary transition-colors py-2"
                 >
                   {l.label}
-                </a>
+                </Link>
               ))}
               <Link
                 to="/blog"
@@ -99,16 +97,16 @@ const Navbar = () => {
               >
                 Blog
               </Link>
-              <a
-                href="#contact"
+              <Link
+                to="/#contact"
                 onClick={() => {
                   setOpen(false);
-                  trackEvent("lets_talk_click", { location: "navbar_mobile", label: "Let's Talk", destination: "#contact" });
+                  trackEvent("lets_talk_click", { location: "navbar_mobile", label: "Let's Talk", destination: "/#contact" });
                 }}
                 className="btn-primary text-center text-sm py-2 rounded-lg"
               >
                 Let's Talk
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}
