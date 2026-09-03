@@ -66,6 +66,26 @@ const getEmbedUrl = (url: string) => {
   return match ? `https://www.youtube.com/embed/${match[1]}?autoplay=1&rel=0` : null;
 };
 
+const getVideoId = (url: string): string | null => {
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+  return match ? match[1] : null;
+};
+
+const getThumbUrl = (url: string): string | null => {
+  const id = getVideoId(url);
+  return id ? `https://img.youtube.com/vi/${id}/maxresdefault.jpg` : null;
+};
+
+const handleThumbError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+  const target = e.currentTarget;
+  const sd = target.src.replace("maxresdefault", "hqdefault");
+  if (sd !== target.src) {
+    target.src = sd;
+  } else {
+    target.style.display = "none";
+  }
+};
+
 const UseCasesSection = () => {
   const [active, setActive] = useState<Category>("All");
   const [selected, setSelected] = useState<UseCase | null>(null);
