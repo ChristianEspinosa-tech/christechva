@@ -7,7 +7,8 @@ export type AnalyticsEvent =
   | "external_link_click"
   | "nav_click"
   | "booking_widget_view"
-  | "booking_widget_engage";
+  | "booking_widget_engage"
+  | "watch_demo_click";
 
 export interface EventParams {
   location: string;

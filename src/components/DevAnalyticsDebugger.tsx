@@ -12,6 +12,7 @@ const ALL_EVENT_TYPES: AnalyticsEvent[] = [
   "external_link_click",
   "booking_widget_view",
   "booking_widget_engage",
+  "watch_demo_click",
 ];
 
 const STORAGE_KEY = "__dev_analytics_debugger_state__";
