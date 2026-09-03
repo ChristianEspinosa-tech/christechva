@@ -17,7 +17,7 @@ interface UseCase {
 const cases: UseCase[] = [
   {
     icon: Facebook,
-    title: "HubSpot + Gmail + Telegram Lead Capture",
+    title: "n8n Lead Capture Automation 2026: HubSpot + Gmail + Telegram in One Workflow (Free Template)",
     desc: "Capture leads in real time and route them into HubSpot with instant Gmail and Telegram notifications for fast follow-up.",
     category: "Lead Gen",
     youtubeUrl: "https://www.youtube.com/watch?v=1MxHtqAmxSA",
