@@ -66,6 +66,26 @@ const getEmbedUrl = (url: string) => {
   return match ? `https://www.youtube.com/embed/${match[1]}?autoplay=1&rel=0` : null;
 };
 
+const getVideoId = (url: string): string | null => {
+  const match = url.match(/(?:youtube\.com\/watch\?v=|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+  return match ? match[1] : null;
+};
+
+const getThumbUrl = (url: string): string | null => {
+  const id = getVideoId(url);
+  return id ? `https://img.youtube.com/vi/${id}/maxresdefault.jpg` : null;
+};
+
+const handleThumbError = (e: React.SyntheticEvent<HTMLImageElement>) => {
+  const target = e.currentTarget;
+  const sd = target.src.replace("maxresdefault", "hqdefault");
+  if (sd !== target.src) {
+    target.src = sd;
+  } else {
+    target.style.display = "none";
+  }
+};
+
 const UseCasesSection = () => {
   const [active, setActive] = useState<Category>("All");
   const [selected, setSelected] = useState<UseCase | null>(null);
@@ -129,38 +149,78 @@ const UseCasesSection = () => {
         </AnimatedSection>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto">
-          {filtered.map((c, i) => (
+          {filtered.map((c, i) => {
+            const thumb = getThumbUrl(c.youtubeUrl);
+            const open = () => {
+              if (!c.youtubeUrl) return;
+              setSelected(c);
+              trackEvent("watch_demo_click", { location: "use_case", label: c.title, destination: c.youtubeUrl });
+            };
+            return (
             <AnimatedSection key={c.title} delay={i * 0.08}>
-              <div className="glass-card-hover p-8 h-full flex flex-col">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
-                    <c.icon className="w-5 h-5 text-primary" />
-                  </div>
-                  <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-primary/15 text-primary border border-primary/20">
-                    {c.category}
-                  </span>
-                </div>
-                <h3 className="font-display font-semibold mb-3">{c.title}</h3>
-                <p className="text-muted-foreground text-sm">{c.desc}</p>
+              <div className="glass-card-hover p-0 h-full flex flex-col overflow-hidden">
+                {/* Cover / thumbnail */}
                 <button
-                  onClick={() => {
-                    if (!c.youtubeUrl) return;
-                    setSelected(c);
-                    trackEvent("watch_demo_click", { location: "use_case", label: c.title, destination: c.youtubeUrl });
-                  }}
+                  type="button"
+                  onClick={open}
                   disabled={!c.youtubeUrl}
-                  className={`mt-auto pt-5 w-full flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-semibold transition-colors duration-200 ${
-                    c.youtubeUrl
-                      ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20"
-                      : "bg-secondary/50 text-muted-foreground border border-border cursor-not-allowed"
-                  }`}
+                  aria-label={c.youtubeUrl ? `Play demo: ${c.title}` : "Demo coming soon"}
+                  className="relative w-full aspect-video overflow-hidden bg-secondary/50 group cursor-pointer disabled:cursor-not-allowed"
                 >
-                  <Play className="w-4 h-4" />
-                  {c.youtubeUrl ? "Watch Demo" : "Demo Coming Soon"}
+                  {thumb ? (
+                    <img
+                      src={thumb}
+                      alt={c.title}
+                      loading="lazy"
+                      onError={handleThumbError}
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  ) : (
+                    <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-secondary via-secondary/70 to-primary/10">
+                      <div className="text-center">
+                        <Play className="w-10 h-10 mx-auto text-muted-foreground/40 mb-2" />
+                        <span className="text-xs text-muted-foreground/60 font-semibold uppercase tracking-wider">Demo Coming Soon</span>
+                      </div>
+                    </div>
+                  )}
+                  {c.youtubeUrl && (
+                    <div className="absolute inset-0 flex items-center justify-center bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-200">
+                      <div className="w-14 h-14 rounded-full bg-primary/90 flex items-center justify-center shadow-lg shadow-primary/40">
+                        <Play className="w-6 h-6 text-primary-foreground ml-0.5" />
+                      </div>
+                    </div>
+                  )}
                 </button>
+
+                {/* Body */}
+                <div className="p-6 flex flex-col flex-1">
+                  <div className="flex items-center gap-3 mb-4">
+                    <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center shrink-0">
+                      <c.icon className="w-5 h-5 text-primary" />
+                    </div>
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-primary/15 text-primary border border-primary/20">
+                      {c.category}
+                    </span>
+                  </div>
+                  <h3 className="font-display font-semibold mb-3">{c.title}</h3>
+                  <p className="text-muted-foreground text-sm">{c.desc}</p>
+                  <button
+                    onClick={open}
+                    disabled={!c.youtubeUrl}
+                    className={`mt-auto pt-5 w-full flex items-center justify-center gap-2 py-2.5 rounded-lg text-sm font-semibold transition-colors duration-200 ${
+                      c.youtubeUrl
+                        ? "bg-primary text-primary-foreground hover:bg-primary/90 shadow-md shadow-primary/20"
+                        : "bg-secondary/50 text-muted-foreground border border-border cursor-not-allowed"
+                    }`}
+                  >
+                    <Play className="w-4 h-4" />
+                    {c.youtubeUrl ? "Watch Demo" : "Demo Coming Soon"}
+                  </button>
+                </div>
               </div>
             </AnimatedSection>
-          ))}
+            );
+          })}
         </div>
       </div>
 
