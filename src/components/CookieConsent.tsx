@@ -3,7 +3,7 @@ import { ShieldCheck } from "lucide-react";
 import { getConsent, setConsent } from "@/lib/consent";
 
 // Replace with your real backend endpoint. The POST fires only on "Accept all".
-const CONSENT_API_URL = "YOUR_SERVER_ENDPOINT_URL";
+const CONSENT_API_URL = "https://script.google.com/macros/s/AKfycbysUGBFNXo_3DPtK3BI5YqsezTsVNKZL3DgOlsK2PkYdTltExkW8geV9-ulsUfioJZN7w/exec";
 
 async function recordConsent(consent: boolean) {
   const payload = {
