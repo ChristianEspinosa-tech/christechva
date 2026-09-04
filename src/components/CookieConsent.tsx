@@ -12,13 +12,11 @@ async function recordConsent(consent: boolean) {
     userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
   };
 
-  // Google Apps Script web apps reject cross-origin POSTs unless sent as
-  // text/plain with mode: "no-cors". Keepalive ensures it survives navigation.
   try {
     await fetch(CONSENT_API_URL, {
       method: "POST",
       mode: "no-cors",
-      headers: { "Content-Type": "text/plain;charset=utf-8" },
+      headers: { "Content-Type": "text/plain" },
       body: JSON.stringify(payload),
       keepalive: true,
     });
