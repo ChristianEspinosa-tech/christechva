@@ -3,7 +3,7 @@ import { ShieldCheck } from "lucide-react";
 import { getConsent, setConsent } from "@/lib/consent";
 
 // Replace with your real backend endpoint. The POST fires only on "Accept all".
-const CONSENT_API_URL = "YOUR_SERVER_ENDPOINT_URL";
+const CONSENT_API_URL = "https://script.google.com/macros/s/AKfycbysUGBFNXo_3DPtK3BI5YqsezTsVNKZL3DgOlsK2PkYdTltExkW8geV9-ulsUfioJZN7w/exec";
 
 async function recordConsent(consent: boolean) {
   const payload = {
@@ -12,10 +12,13 @@ async function recordConsent(consent: boolean) {
     userAgent: typeof navigator !== "undefined" ? navigator.userAgent : "",
   };
 
+  // Google Apps Script web apps reject cross-origin POSTs unless sent as
+  // text/plain with mode: "no-cors". Keepalive ensures it survives navigation.
   try {
     await fetch(CONSENT_API_URL, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      mode: "no-cors",
+      headers: { "Content-Type": "text/plain;charset=utf-8" },
       body: JSON.stringify(payload),
       keepalive: true,
     });
